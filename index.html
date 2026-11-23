@@ -1563,19 +1563,28 @@
 
             // -------------------- 場景 2-1：排水筒 + 下方量杯 --------------------
             else if (q.mode === 'mode2_1') {
-                // 左側：墊高的排水筒（木架 + 排水筒）
+                // 左側：墊高的排水筒（四腳實驗木架 + 排水筒）
                 const standX = 95;
-                const standY = 292;
+                const standY = 250;
                 const tankX = 105;
-                const tankY = 42;
+                const tankY = 38;
                 const tankW = 140;
-                const tankH = 250;
-                const spoutY = 96;
+                const tankH = 212;
+                const spoutY = 98;
+                const standW = tankW + 20;
 
-                // 墊高木架
+                // 墊高小櫈（實驗木架）
                 sceneSvg += `
-                    <rect x="${standX}" y="${standY}" width="${tankW + 20}" height="48" rx="12" fill="#FFE082" stroke="#5D4E60" stroke-width="2.8"/>
-                    <text x="${standX + (tankW + 20) / 2}" y="${standY + 29}" text-anchor="middle" font-size="14" font-weight="900" fill="#5D4E60">排水筒</text>
+                    <g>
+                        <!-- 左右木櫈腳 -->
+                        <rect x="${standX + 16}" y="${standY + 14}" width="16" height="${342 - (standY + 14)}" rx="4" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <rect x="${standX + standW - 32}" y="${standY + 14}" width="16" height="${342 - (standY + 14)}" rx="4" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <!-- 橫向木條 -->
+                        <rect x="${standX + 32}" y="${standY + 34}" width="${standW - 64}" height="11" rx="5" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.4"/>
+                        <!-- 櫈面木板 -->
+                        <rect x="${standX}" y="${standY}" width="${standW}" height="14" rx="7" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <text x="${standX + standW / 2}" y="${standY + 72}" text-anchor="middle" font-size="13" font-weight="900" fill="#5D4E60">實驗木架</text>
+                    </g>
                 `;
 
                 // 排水筒本體與水（滿至溢水口）
@@ -1583,7 +1592,12 @@
                     <rect x="${tankX}" y="${tankY}" width="${tankW}" height="${tankH}" rx="12" fill="url(#glassGrad)" stroke="#5D4E60" stroke-width="3"/>
                     <rect x="${tankX + 4}" y="${spoutY}" width="${tankW - 8}" height="${tankH - (spoutY - tankY) - 4}" rx="6" fill="url(#waterGrad)"/>
                     <line x1="${tankX + 4}" y1="${spoutY}" x2="${tankX + tankW - 4}" y2="${spoutY}" stroke="#1E88E5" stroke-width="2.5"/>
-                    <text x="${tankX + 12}" y="${spoutY - 8}" font-size="12" font-weight="900" fill="#1E88E5">溢水口水位線</text>
+                    <!-- 排水筒上方可愛膠囊標籤 -->
+                    <g transform="translate(${tankX + tankW / 2}, ${tankY + 20})">
+                        <rect x="-34" y="-11" width="68" height="22" rx="11" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">排水筒</text>
+                    </g>
+                    <text x="${tankX + 12}" y="${spoutY - 7}" font-size="12" font-weight="900" fill="#1E88E5">溢水口水位線</text>
                 `;
 
                 // 溢水口斜管（指向右側量杯上方）
@@ -1595,18 +1609,18 @@
                 `;
 
                 // 重物位置
-                const objY = isAfter ? (tankY + tankH - 34) : 22;
-                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.9);
+                const objY = isAfter ? (tankY + tankH - 28) : 20;
+                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.88);
 
                 // 溢出的藍色水流曲線（直接落入下方加高清晰量杯中央）
                 const cupX = 335;
-                const cupY = 112;
+                const cupY = 122;
                 const cupW = 132;
-                const cupH = 218;
+                const cupH = 210;
 
                 if (isAfter) {
                     sceneSvg += `
-                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${cupX + cupW / 2 - 8} ${spoutEndY + 4}, ${cupX + cupW / 2} ${cupY + 18}"
+                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${cupX + cupW / 2 - 8} ${spoutEndY + 4}, ${cupX + cupW / 2} ${cupY + 14}"
                               fill="none" stroke="#89CFF0" stroke-width="6" stroke-dasharray="10,6" stroke-linecap="round"/>
                     `;
                 }
@@ -1637,18 +1651,27 @@
 
             // -------------------- 場景 2-2：排水筒 + 下方透明方盒 --------------------
             else if (q.mode === 'mode2_2') {
-                const standX = 72;
-                const standY = 292;
-                const tankX = 82;
-                const tankY = 40;
+                const standX = 56;
+                const standY = 250;
+                const tankX = 66;
+                const tankY = 38;
                 const tankW = 135;
-                const tankH = 252;
-                const spoutY = 100;
+                const tankH = 212;
+                const spoutY = 98;
+                const standW = tankW + 20;
 
-                // 墊高木架
+                // 墊高小櫈（實驗木架）
                 sceneSvg += `
-                    <rect x="${standX}" y="${standY}" width="${tankW + 20}" height="48" rx="12" fill="#FFE082" stroke="#5D4E60" stroke-width="2.8"/>
-                    <text x="${standX + (tankW + 20) / 2}" y="${standY + 29}" text-anchor="middle" font-size="14" font-weight="900" fill="#5D4E60">排水筒</text>
+                    <g>
+                        <!-- 左右木櫈腳 -->
+                        <rect x="${standX + 16}" y="${standY + 14}" width="16" height="${342 - (standY + 14)}" rx="4" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <rect x="${standX + standW - 32}" y="${standY + 14}" width="16" height="${342 - (standY + 14)}" rx="4" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <!-- 橫向木條 -->
+                        <rect x="${standX + 32}" y="${standY + 34}" width="${standW - 64}" height="11" rx="5" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.4"/>
+                        <!-- 櫈面木板 -->
+                        <rect x="${standX}" y="${standY}" width="${standW}" height="14" rx="7" fill="#F5D09C" stroke="#5D4E60" stroke-width="2.6"/>
+                        <text x="${standX + standW / 2}" y="${standY + 72}" text-anchor="middle" font-size="13" font-weight="900" fill="#5D4E60">實驗木架</text>
+                    </g>
                 `;
 
                 // 排水筒本體
@@ -1656,36 +1679,43 @@
                     <rect x="${tankX}" y="${tankY}" width="${tankW}" height="${tankH}" rx="12" fill="url(#glassGrad)" stroke="#5D4E60" stroke-width="3"/>
                     <rect x="${tankX + 4}" y="${spoutY}" width="${tankW - 8}" height="${tankH - (spoutY - tankY) - 4}" rx="6" fill="url(#waterGrad)"/>
                     <line x1="${tankX + 4}" y1="${spoutY}" x2="${tankX + tankW - 4}" y2="${spoutY}" stroke="#1E88E5" stroke-width="2.5"/>
-                    <text x="${tankX + 10}" y="${spoutY - 8}" font-size="11.5" font-weight="900" fill="#1E88E5">溢水口水位線</text>
+                    <!-- 排水筒上方可愛膠囊標籤 -->
+                    <g transform="translate(${tankX + tankW / 2}, ${tankY + 20})">
+                        <rect x="-34" y="-11" width="68" height="22" rx="11" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">排水筒</text>
+                    </g>
+                    <text x="${tankX + 10}" y="${spoutY - 7}" font-size="11.5" font-weight="900" fill="#1E88E5">溢水口水位線</text>
                 `;
 
                 // 溢水口斜管
                 const spoutEndX = tankX + tankW + 44;
-                const spoutEndY = spoutY + 18;
+                const spoutEndY = spoutY + 16;
                 sceneSvg += `
                     <polygon points="${tankX + tankW},${spoutY - 5} ${spoutEndX},${spoutEndY - 5} ${spoutEndX},${spoutEndY + 5} ${tankX + tankW},${spoutY + 6}"
                              fill="#E1F5FE" stroke="#5D4E60" stroke-width="2.5" stroke-linejoin="round"/>
                 `;
 
                 // 重物
-                const objY = isAfter ? (tankY + tankH - 34) : 20;
-                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.88);
+                const objY = isAfter ? (tankY + tankH - 28) : 20;
+                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.86);
 
-                // 置於排水筒溢水口正下方的透明方盒
-                const boxX = 355;
-                const boxY = 175;
-                const boxW = 148;
-                const boxH = 140;
-                const dX = 36;
-                const dY = 26;
+                // 右側下方透明方盒座標
+                const boxX = 345;
+                const boxY = 178;
+                const boxW = 165;
+                const boxH = 160;
+                const dX = 40;
+                const dY = 28;
 
+                // 溢出的藍色水流曲線（直接落入下方透明方盒）
                 if (isAfter) {
                     sceneSvg += `
-                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${boxX + boxW / 2 - 12} ${spoutEndY + 12}, ${boxX + boxW / 2} ${boxY - 6}"
+                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${boxX + 32} ${spoutEndY + 6}, ${boxX + 46} ${boxY - 6}"
                               fill="none" stroke="#89CFF0" stroke-width="6" stroke-dasharray="10,6" stroke-linecap="round"/>
                     `;
                 }
 
+                // 置於排水筒溢水口正下方的透明方盒
                 sceneSvg += renderIsoBoxSvg({
                     x: boxX,
                     y: boxY,
