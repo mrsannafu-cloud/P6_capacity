@@ -75,7 +75,7 @@
             cursor: not-allowed;
         }
 
-        /* 小柴博士呼吸浮動動畫 */
+        /* 吉祥物呼吸浮動動畫 */
         @keyframes shibaFloat {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-4px); }
@@ -84,7 +84,7 @@
             animation: shibaFloat 2.8s ease-in-out infinite;
         }
 
-        /* 答對時小柴博士開心跳躍動畫 */
+        /* 答對時開心跳躍動畫 */
         @keyframes shibaJump {
             0%, 100% { transform: translateY(0) scale(1); }
             30% { transform: translateY(-12px) scale(1.06); }
@@ -115,15 +115,6 @@
             animation: gentleShake 0.4s ease-in-out;
         }
 
-        /* 水波漣漪閃爍 */
-        @keyframes ripplePulse {
-            0%, 100% { opacity: 0.75; }
-            50% { opacity: 0.35; }
-        }
-        .water-ripple {
-            animation: ripplePulse 2.2s ease-in-out infinite;
-        }
-
         /* 隱藏數字輸入框預設上下微調按鈕 */
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
@@ -150,17 +141,17 @@
     <!-- 慶祝彩帶畫布 -->
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- 主容器：左方固定選擇欄目 (~300px) + 右方自適應操作欄目 -->
+    <!-- 主容器：左方固定選擇欄目 (~310px) + 右方自適應操作欄目 -->
     <div class="max-w-[1360px] mx-auto flex flex-col lg:flex-row gap-5 lg:gap-6 items-start">
 
-        <!-- ==================== 左方選擇欄目 (Left Sidebar, ~300px on Desktop) ==================== -->
+        <!-- ==================== 左方選擇欄目 (Left Sidebar) ==================== -->
         <aside class="w-full lg:w-[310px] lg:flex-shrink-0 flex flex-col gap-4">
 
-            <!-- 1. 標題與「小柴博士」吉祥物卡片 -->
+            <!-- 1. 標題與「陳老師」日系動漫頭像卡片 -->
             <div class="kawaii-card p-4 bg-gradient-to-br from-sakura/30 via-white to-butter/40 border-sakura">
                 <div class="flex items-center justify-between gap-2 mb-2">
                     <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-sakura text-white text-xs font-black tracking-wide shadow-sm">
-                        <span>🐾</span> 香港小六數學科
+                        <span>🌸</span> 香港小六數學科
                     </span>
                     <button id="sound-btn" onclick="toggleSound()" title="開啟或關閉音效"
                             class="w-9 h-9 rounded-full bg-white hover:bg-butter/40 border-2 border-paperBorder flex items-center justify-center text-base transition">
@@ -173,7 +164,7 @@
                     <span class="text-skyDark">體積與排水法大挑戰</span>
                 </h1>
 
-                <!-- 小柴博士 SVG 與對話氣泡 -->
+                <!-- 小柴博士吉祥物與對話氣泡 -->
                 <div class="mt-3 pt-3 border-t-2 border-dashed border-sakura/50 flex items-center gap-3">
                     <div id="shiba-mascot-box" class="w-20 h-20 flex-shrink-0 shiba-float">
                         <!-- 由 JS 動態渲染「小柴博士」不同表情 SVG -->
@@ -181,10 +172,10 @@
                     <div class="flex-1 bg-white rounded-2xl p-2.5 border-2 border-sky relative shadow-sm">
                         <div class="absolute -left-2 top-6 w-3 h-3 bg-white border-l-2 border-b-2 border-sky transform rotate-45"></div>
                         <div class="text-[11px] font-black text-skyDark flex items-center gap-1">
-                            <span>🥼</span> 小柴博士
+                            <span>🐕</span> 小柴博士
                         </div>
                         <p id="shiba-speech" class="text-xs font-bold text-plum leading-relaxed mt-0.5">
-                            汪汪！歡迎來到小柴實驗室！一起觀察水位變化，算出重物的體積吧！
+                            汪！歡迎來到小柴實驗室！一起觀察水位變化，算出重物的體積吧！
                         </p>
                     </div>
                 </div>
@@ -194,15 +185,15 @@
             <div class="kawaii-card p-3.5 bg-gradient-to-r from-butter/35 to-white border-butterDark">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-black text-plum flex items-center gap-1">
-                        <span>🏅</span> 實驗室成就紀錄
+                        <span>🏅</span> 實驗室成就與分項得分
                     </span>
                     <span id="rank-badge" class="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-butter text-plum border border-butterDark">
-                        見習小柴助教
+                        見習數學小助手 ✨
                     </span>
                 </div>
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <div class="bg-white rounded-2xl p-2 border border-paperBorder">
-                        <div class="text-[11px] font-bold text-plumLight">已答對</div>
+                        <div class="text-[11px] font-bold text-plumLight">總答對題數</div>
                         <div id="stat-solved" class="text-lg font-black text-mintDark mt-0.5">0</div>
                     </div>
                     <div class="bg-white rounded-2xl p-2 border border-paperBorder">
@@ -212,10 +203,38 @@
                         </div>
                     </div>
                     <div class="bg-white rounded-2xl p-2 border border-paperBorder">
-                        <div class="text-[11px] font-bold text-plumLight">獲得星星</div>
+                        <div class="text-[11px] font-bold text-plumLight">總得分</div>
                         <div class="text-lg font-black text-amber-500 mt-0.5">
-                            <span id="stat-stars">0</span><span class="text-xs ml-0.5">⭐</span>
+                            <span id="stat-stars">0</span><span class="text-xs ml-0.5">分</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 各選項獨立得分與強弱項分析 -->
+                <div class="mt-3 pt-2.5 border-t border-dashed border-butterDark/70">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[11px] font-black text-plum flex items-center gap-1">
+                            <span>📊</span> 各選項得分及強弱項分析
+                        </span>
+                        <div id="reset-score-controls" class="flex items-center gap-1">
+                            <button id="reset-score-btn" onclick="promptResetProgress()"
+                                    class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white hover:bg-sakura/20 text-plumLight hover:text-sakuraDark border border-paperBorder transition">
+                                重置得分
+                            </button>
+                            <div id="reset-confirm-group" class="hidden flex items-center gap-1">
+                                <button onclick="confirmResetProgress()"
+                                        class="text-[10px] font-black px-2 py-0.5 rounded-full bg-sakuraDark text-white">
+                                    確定重置
+                                </button>
+                                <button onclick="cancelResetProgress()"
+                                        class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-white text-plum border border-paperBorder">
+                                    取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mode-breakdown-list" class="space-y-2">
+                        <!-- 由 JS 動態生成五個選項的獨立得分與強弱項分析條 -->
                     </div>
                 </div>
             </div>
@@ -230,8 +249,11 @@
                 <button id="menu-mode1" onclick="switchMode('mode1')"
                         class="mode-btn w-full text-left p-3 rounded-2xl border-2 transition-all flex items-start gap-2.5">
                     <span class="w-8 h-8 rounded-xl bg-sky/35 flex items-center justify-center text-base flex-shrink-0 mt-0.5">🥛</span>
-                    <div>
-                        <div class="text-sm font-black text-plum">選項一：量杯排水法</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between gap-1">
+                            <span class="text-sm font-black text-plum">選項一：量杯排水法</span>
+                            <span id="badge-mode1" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky/25 text-skyDark whitespace-nowrap">0 分</span>
+                        </div>
                         <div class="text-[11px] font-medium text-plumLight leading-snug mt-0.5">
                             把重物置於量杯中，按水位找出重物的體積
                         </div>
@@ -248,21 +270,27 @@
                     <!-- 選項二 程度一 -->
                     <button id="menu-mode2_1" onclick="switchMode('mode2_1')"
                             class="mode-btn w-full text-left p-2.5 rounded-xl border-2 transition-all flex flex-col gap-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="px-2 py-0.5 rounded-full bg-mint text-plum text-[11px] font-black">程度一</span>
-                            <span class="text-xs font-black text-plum">量杯盛載溢出的水</span>
+                        <div class="flex items-center justify-between gap-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-full bg-mint text-plum text-[11px] font-black">程度一</span>
+                                <span class="text-xs font-black text-plum">量杯盛載溢出的水</span>
+                            </div>
+                            <span id="badge-mode2_1" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-mint/35 text-mintDark whitespace-nowrap">0 分</span>
                         </div>
                         <div class="text-[11px] font-medium text-plumLight pl-1">
-                            按量杯水位填入重物的體積
+                            觀察量杯水位刻度，填入重物的體積
                         </div>
                     </button>
 
                     <!-- 選項二 程度二 -->
                     <button id="menu-mode2_2" onclick="switchMode('mode2_2')"
                             class="mode-btn w-full text-left p-2.5 rounded-xl border-2 transition-all flex flex-col gap-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="px-2 py-0.5 rounded-full bg-butter text-plum text-[11px] font-black">程度二</span>
-                            <span class="text-xs font-black text-plum">透明方盒盛載溢出的水</span>
+                        <div class="flex items-center justify-between gap-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-full bg-butter text-plum text-[11px] font-black">程度二</span>
+                                <span class="text-xs font-black text-plum">透明方盒盛載溢出的水</span>
+                            </div>
+                            <span id="badge-mode2_2" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-butter/60 text-amber-700 whitespace-nowrap">0 分</span>
                         </div>
                         <div class="text-[11px] font-medium text-plumLight pl-1">
                             按方盒的長、闊和水高計算體積
@@ -280,9 +308,12 @@
                     <!-- 選項三 程度一 -->
                     <button id="menu-mode3_1" onclick="switchMode('mode3_1')"
                             class="mode-btn w-full text-left p-2.5 rounded-xl border-2 transition-all flex flex-col gap-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="px-2 py-0.5 rounded-full bg-sky/60 text-plum text-[11px] font-black">程度一</span>
-                            <span class="text-xs font-black text-plum">按升高的水位找體積</span>
+                        <div class="flex items-center justify-between gap-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-full bg-sky/60 text-plum text-[11px] font-black">程度一</span>
+                                <span class="text-xs font-black text-plum">按升高的水位找體積</span>
+                            </div>
+                            <span id="badge-mode3_1" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky/30 text-skyDark whitespace-nowrap">0 分</span>
                         </div>
                         <div class="text-[11px] font-medium text-plumLight pl-1">
                             觀察水位變化，計算重物的體積
@@ -292,9 +323,12 @@
                     <!-- 選項三 程度二 -->
                     <button id="menu-mode3_2" onclick="switchMode('mode3_2')"
                             class="mode-btn w-full text-left p-2.5 rounded-xl border-2 transition-all flex flex-col gap-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="px-2 py-0.5 rounded-full bg-sakura/70 text-plum text-[11px] font-black">程度二</span>
-                            <span class="text-xs font-black text-plum">已知體積找升高水位</span>
+                        <div class="flex items-center justify-between gap-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-full bg-sakura/70 text-plum text-[11px] font-black">程度二</span>
+                                <span class="text-xs font-black text-plum">已知體積找升高水位</span>
+                            </div>
+                            <span id="badge-mode3_2" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-sakura/30 text-sakuraDark whitespace-nowrap">0 分</span>
                         </div>
                         <div class="text-[11px] font-medium text-plumLight pl-1">
                             已知重物體積，計算升高的水位
@@ -333,7 +367,7 @@
         <!-- ==================== 右方操作欄目 (Right Workspace) ==================== -->
         <main class="flex-1 w-full flex flex-col gap-4">
 
-            <!-- 頂部狀態列：模式標題、難度標籤、題號、剩餘機會、重播/比較按鈕 -->
+            <!-- 頂部狀態列 -->
             <header class="kawaii-card px-4 py-3 flex flex-wrap items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-2">
                     <span id="header-mode-title" class="px-3.5 py-1.5 rounded-full bg-sky/35 text-plum font-black text-xs sm:text-sm">
@@ -441,7 +475,7 @@
 
                 <!-- 溫馨輸入驗證提示條（絕不使用 alert） -->
                 <div id="input-warning-banner" class="hidden mt-3 px-4 py-2 rounded-xl bg-butter/60 border border-butterDark text-plum text-xs sm:text-sm font-bold flex items-center gap-2">
-                    <span>🐾</span>
+                    <span>🌸</span>
                     <span id="input-warning-text">請先輸入數字答案再提交喔！</span>
                 </div>
 
@@ -520,7 +554,7 @@
 
                         <div class="mt-4 pt-3 border-t border-paperBorder flex flex-wrap items-center justify-between gap-2">
                             <span class="text-xs font-bold text-plumLight">
-                                🐾 小柴博士：「看懂每一步的算式後，再試一題類似的吧！」
+                                🐕 小柴博士：「看懂每一步的算式後，再試一題類似的吧！」
                             </span>
                             <button onclick="generateNextQuestion()"
                                     class="pill-btn px-5 py-2.5 rounded-2xl bg-skyDark text-white font-black text-sm border-2 border-white">
@@ -537,128 +571,165 @@
 
     <script>
         /* ============================================================================
-           1. 全域狀態與模式設定 (Global State & Curriculum Mode Configuration)
+           1. 模式設定、重物圖鑑與讚賞語庫
            ============================================================================ */
         const MODE_CONFIG = {
             mode1: {
                 title: '選項一：量杯排水法',
-                difficulty: '水位差觀察',
+                shortTitle: '選項一：量杯排水法',
+                badge: '基礎觀察',
+                promptLabel: '重物的體積是：',
                 unit: 'cm³',
-                inputLabel: '重物的體積是：',
-                introSpeech: '觀察量杯放入重物前後的水位刻度，兩者相減就是重物的體積囉！'
+                introSpeech: '細心觀察量杯放入重物後的水位刻度，減去原來的水位就能算出體積，記得 1 mL = 1 cm³ 喔！'
             },
             mode2_1: {
-                title: '選項二：排水筒實驗（程度一）',
-                difficulty: '量杯接水',
+                title: '選項二：排水筒（程度一）',
+                shortTitle: '選項二(一)：量杯溢水',
+                badge: '溢水讀數',
+                promptLabel: '重物的體積是：',
                 unit: 'cm³',
-                inputLabel: '重物的體積是：',
-                introSpeech: '排水筒原本裝滿水到溢水口，溢進量杯的水量就等於重物的體積！'
+                introSpeech: '請細心觀察下方量杯的水位刻度線，讀出溢出的水量就是重物的體積！'
             },
             mode2_2: {
-                title: '選項二：排水筒實驗（程度二）',
-                difficulty: '透明方盒接水',
+                title: '選項二：排水筒（程度二）',
+                shortTitle: '選項二(二)：方盒溢水',
+                badge: '公式應用',
+                promptLabel: '重物的體積是：',
                 unit: 'cm³',
-                inputLabel: '重物的體積是：',
-                introSpeech: '溢出的水裝進透明方盒裡了！用「長 × 闊 × 溢出水的高」算出體積吧！'
+                introSpeech: '溢出的水流進了下方透明方盒，用「長 × 闊 × 水高」就能算出體積！'
             },
             mode3_1: {
-                title: '選項三：長方體盛水容器（程度一）',
-                difficulty: '按升高的水位找體積',
+                title: '選項三：盛水方盒（程度一）',
+                shortTitle: '選項三(一)：方盒求體積',
+                badge: '底面積 × 升高水位',
+                promptLabel: '重物的體積是：',
                 unit: 'cm³',
-                inputLabel: '重物的體積是：',
-                introSpeech: '先找出水位升高了多少 cm，再乘以容器的底面積（長 × 闊）！'
+                introSpeech: '比較放入重物前後的水深變化，再用「長 × 闊 × 升高的水位」計算！'
             },
             mode3_2: {
-                title: '選項三：長方體盛水容器（程度二）',
-                difficulty: '已知體積找升高水位',
+                title: '選項三：盛水方盒（程度二）',
+                shortTitle: '選項三(二)：方盒求水位',
+                badge: '逆向推理水位',
+                promptLabel: '水位升高了：',
                 unit: 'cm',
-                inputLabel: '水位升高了：',
-                introSpeech: '已知重物體積，只要把「重物體積 ÷ (長 × 闊)」就能找出升高的水位！'
+                introSpeech: '這題已知重物體積，試試用「重物體積 ÷ (長 × 闊)」找出升高了多少 cm！'
             }
         };
 
-        // 8 種日系可愛重物資料庫
+        const MODE_ORDER = ['mode1', 'mode2_1', 'mode2_2', 'mode3_1', 'mode3_2'];
+
         const HEAVY_OBJECTS = [
-            { id: 'iron', name: '銅塊', emoji: '🧱', color: '#E6A15C', stroke: '#5D4E60' },
-            { id: 'pebble', name: '小石頭', emoji: '🪨', color: '#BCAAA4', stroke: '#5D4E60' },
-            { id: 'rubik', name: '魔術方塊', emoji: '🎲', color: '#FF9EB5', stroke: '#5D4E60' },
-            { id: 'gold', name: '鐵球', emoji: '⚫', color: '#90A4AE', stroke: '#5D4E60' },
-            { id: 'duck', name: '小鴨擺設', emoji: '🦆', color: '#FFE082', stroke: '#5D4E60' },
-            { id: 'crystal', name: '玻璃珠', emoji: '🔮', color: '#80DEEA', stroke: '#5D4E60' },
-            { id: 'conch', name: '小海螺', emoji: '🐚', color: '#FFAB91', stroke: '#5D4E60' },
-            { id: 'block', name: '幾何積木', emoji: '🔷', color: '#B39DDB', stroke: '#5D4E60' }
+            { name: '鐵塊', emoji: '🧊', type: 'cube', color: '#90A4AE', stroke: '#5D4E60' },
+            { name: '貝殼', emoji: '🐚', type: 'shell', color: '#FFAB91', stroke: '#5D4E60' },
+            { name: '鵝卵石', emoji: '🪨', type: 'stone', color: '#A5D6A7', stroke: '#5D4E60' },
+            { name: '小鴨模型', emoji: '🐤', type: 'duck', color: '#FFE082', stroke: '#5D4E60' },
+            { name: '水晶球', emoji: '🔮', type: 'sphere', color: '#CE93D8', stroke: '#5D4E60' }
         ];
 
-        // 答對讚賞語句庫
         const PRAISE_MESSAGES = [
             '太棒了！你完全掌握了排水法的奧秘！🌟',
             '好聰明！體積計算得又快又準確！🎉',
-            '滿分表現！小柴博士為你拍拍手！🐾',
+            '滿分表現！小柴博士為你拍拍手！👏',
             '真厲害！水位變化的規律難不倒你！✨',
             '實驗大成功！你已經具備小小科學家的實力囉！🏆'
         ];
 
-        // 全域應用程式狀態
+        const APPROX_PHRASES = [
+            { text: '取近似值至一位小數點', dp: 1 },
+            { text: '取近似值至十分位', dp: 1 },
+            { text: '取近似值至兩位小數', dp: 2 },
+            { text: '取近似值至百分位', dp: 2 }
+        ];
+
+        /* ============================================================================
+           2. 全域狀態與各選項分項計分架構
+           ============================================================================ */
+        function createDefaultModeStats() {
+            return {
+                mode1: { attempted: 0, solved: 0, stars: 0 },
+                mode2_1: { attempted: 0, solved: 0, stars: 0 },
+                mode2_2: { attempted: 0, solved: 0, stars: 0 },
+                mode3_1: { attempted: 0, solved: 0, stars: 0 },
+                mode3_2: { attempted: 0, solved: 0, stars: 0 }
+            };
+        }
+
         const state = {
             currentMode: 'mode1',
-            questionCount: 0,
+            questionNumber: 0,
+            currentQuestion: null,
             attemptsLeft: 3,
             isQuestionFinished: false,
-            currentQuestion: null,
-            viewPhase: 'after',
-            animProgress: 1,
-            animFrameId: null,
+            showAfterState: true,
+            animTimer: null,
+            soundEnabled: true,
             solvedCount: 0,
             streakCount: 0,
             starCount: 0,
-            soundEnabled: true
+            modeStats: createDefaultModeStats()
         };
 
         /* ============================================================================
-           2. 基礎數學與隨機輔助工具
-           ============================================================================ */
-        function pickRandom(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        function randInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        function roundTo(num, decimals = 2) {
-            const factor = Math.pow(10, decimals);
-            return Math.round((num + Number.EPSILON) * factor) / factor;
-        }
-
-        /* ============================================================================
-           3. 學習進度儲存與成就更新 (LocalStorage & Stats UI)
+           3. 本機儲存與分項得分 / 強弱項分析更新
            ============================================================================ */
         function loadProgress() {
             try {
-                const raw = localStorage.getItem('shiba_volume_lab_p6');
+                const raw = localStorage.getItem('shiba_volume_lab_v2');
                 if (raw) {
-                    const saved = JSON.parse(raw);
-                    state.solvedCount = Number(saved.solvedCount) || 0;
-                    state.streakCount = Number(saved.streakCount) || 0;
-                    state.starCount = Number(saved.starCount) || 0;
+                    const data = JSON.parse(raw);
+                    state.solvedCount = Number(data.solvedCount) || 0;
+                    state.streakCount = Number(data.streakCount) || 0;
+                    state.starCount = Number(data.starCount) || 0;
+                    if (data.modeStats && typeof data.modeStats === 'object') {
+                        MODE_ORDER.forEach(m => {
+                            if (data.modeStats[m]) {
+                                state.modeStats[m] = {
+                                    attempted: Number(data.modeStats[m].attempted) || 0,
+                                    solved: Number(data.modeStats[m].solved) || 0,
+                                    stars: Number(data.modeStats[m].stars) || 0
+                                };
+                            }
+                        });
+                    }
                 }
-            } catch (e) {
-                // 忽略無痕模式或 iFrame 儲存限制錯誤
+            } catch (err) {
+                // 忽略瀏覽器隱私模式或沙盒存取限制
             }
             updateStatsUI();
         }
 
         function saveProgress() {
             try {
-                localStorage.setItem('shiba_volume_lab_p6', JSON.stringify({
+                localStorage.setItem('shiba_volume_lab_v2', JSON.stringify({
                     solvedCount: state.solvedCount,
                     streakCount: state.streakCount,
-                    starCount: state.starCount
+                    starCount: state.starCount,
+                    modeStats: state.modeStats
                 }));
-            } catch (e) {
-                // 忽略儲存限制錯誤
+            } catch (err) {
+                // 忽略儲存限制
             }
             updateStatsUI();
+        }
+
+        function promptResetProgress() {
+            document.getElementById('reset-score-btn').classList.add('hidden');
+            document.getElementById('reset-confirm-group').classList.remove('hidden');
+        }
+
+        function cancelResetProgress() {
+            document.getElementById('reset-confirm-group').classList.add('hidden');
+            document.getElementById('reset-score-btn').classList.remove('hidden');
+        }
+
+        function confirmResetProgress() {
+            state.solvedCount = 0;
+            state.streakCount = 0;
+            state.starCount = 0;
+            state.modeStats = createDefaultModeStats();
+            cancelResetProgress();
+            saveProgress();
+            setShibaSpeech('已清空所有分數紀錄，我們重新開始一輪新的實驗挑戰吧！✨', 'idle');
         }
 
         function updateStatsUI() {
@@ -668,82 +739,146 @@
 
             const rankEl = document.getElementById('rank-badge');
             if (state.starCount >= 30) {
-                rankEl.textContent = '小柴首席科學家 👑';
+                rankEl.textContent = '小柴首席小助教 👑';
             } else if (state.starCount >= 16) {
                 rankEl.textContent = '體積推理達人 🎓';
             } else if (state.starCount >= 6) {
                 rankEl.textContent = '實驗室小能手 🧪';
             } else {
-                rankEl.textContent = '見習小柴助教 🐾';
+                rankEl.textContent = '見習數學小助手 ✨';
             }
+
+            // 更新選單按鈕右上角各模式得分膠囊與分項強弱項分析表
+            const breakdownEl = document.getElementById('mode-breakdown-list');
+            if (!breakdownEl) return;
+
+            breakdownEl.innerHTML = MODE_ORDER.map(modeKey => {
+                const cfg = MODE_CONFIG[modeKey];
+                const st = state.modeStats[modeKey] || { attempted: 0, solved: 0, stars: 0 };
+                const maxPossible = st.attempted * 3;
+                const pct = st.attempted > 0 ? Math.round((st.stars / maxPossible) * 100) : 0;
+
+                // 更新左方選單按鈕內的迷你得分徽章
+                const menuBadge = document.getElementById(`badge-${modeKey}`);
+                if (menuBadge) {
+                    menuBadge.textContent = st.attempted > 0 ? `${st.stars}/${maxPossible}分` : '0 分';
+                }
+
+                // 判定強弱項狀態標籤與進度條顏色
+                let statusText = '未作答';
+                let statusClass = 'bg-cream text-plumLight border-paperBorder';
+                let barColor = 'bg-paperBorder';
+
+                if (st.attempted > 0) {
+                    if (pct >= 80) {
+                        statusText = '強項 🌟';
+                        statusClass = 'bg-mint/45 text-mintDark border-mintDark/40';
+                        barColor = 'bg-mintDark';
+                    } else if (pct >= 50) {
+                        statusText = '良好 👍';
+                        statusClass = 'bg-butter/70 text-amber-700 border-butterDark';
+                        barColor = 'bg-butterDark';
+                    } else {
+                        statusText = '待加強 💪';
+                        statusClass = 'bg-sakura/30 text-sakuraDark border-sakura';
+                        barColor = 'bg-sakuraDark';
+                    }
+                }
+
+                return `
+                    <div class="bg-white/95 rounded-xl p-2 border border-paperBorder">
+                        <div class="flex items-center justify-between gap-1 text-[11px]">
+                            <span class="font-black text-plum truncate">${cfg.shortTitle}</span>
+                            <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-black whitespace-nowrap ${statusClass}">
+                                ${statusText}
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between text-[10px] font-bold text-plumLight mt-1">
+                            <span>得分：${st.stars} / ${maxPossible} 分</span>
+                            <span>答對：${st.solved} / ${st.attempted} 題</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-cream rounded-full overflow-hidden mt-1 border border-paperBorder/60">
+                            <div class="h-full ${barColor} transition-all duration-500" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         /* ============================================================================
            4. Web Audio API 溫馨實驗室音效（無外部音訊連結）
            ============================================================================ */
-        let audioCtx = null;
-
         function toggleSound() {
             state.soundEnabled = !state.soundEnabled;
             const btn = document.getElementById('sound-btn');
-            btn.textContent = state.soundEnabled ? '🔊' : '🔇';
+            if (btn) {
+                btn.textContent = state.soundEnabled ? '🔊' : '🔇';
+            }
+            if (state.soundEnabled) {
+                playTone('click');
+            }
         }
 
         function playTone(type) {
             if (!state.soundEnabled) return;
             try {
-                if (!audioCtx) {
-                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                    audioCtx = new AudioContextClass();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const now = ctx.currentTime;
 
-                const now = audioCtx.currentTime;
                 if (type === 'correct') {
                     const notes = [523.25, 659.25, 783.99, 1046.5];
                     notes.forEach((freq, idx) => {
-                        const osc = audioCtx.createOscillator();
-                        const gain = audioCtx.createGain();
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
                         osc.type = 'triangle';
-                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-                        gain.gain.setValueAtTime(0.14, now + idx * 0.08);
-                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                        gain.gain.setValueAtTime(0.14, now + idx * 0.09);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.35);
                         osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start(now + idx * 0.08);
-                        osc.stop(now + idx * 0.08 + 0.36);
+                        gain.connect(ctx.destination);
+                        osc.start(now + idx * 0.09);
+                        osc.stop(now + idx * 0.09 + 0.36);
                     });
                 } else if (type === 'wrong') {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(240, now);
-                    osc.frequency.exponentialRampToValueAtTime(170, now + 0.25);
-                    gain.gain.setValueAtTime(0.14, now);
+                    osc.frequency.setValueAtTime(310, now);
+                    osc.frequency.linearRampToValueAtTime(240, now + 0.25);
+                    gain.gain.setValueAtTime(0.12, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
                     osc.connect(gain);
-                    gain.connect(audioCtx.destination);
+                    gain.connect(ctx.destination);
                     osc.start(now);
-                    osc.stop(now + 0.29);
-                } else if (type === 'splash') {
-                    const notes = [340, 460, 620];
-                    notes.forEach((freq, idx) => {
-                        const osc = audioCtx.createOscillator();
-                        const gain = audioCtx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
-                        gain.gain.setValueAtTime(0.08, now + idx * 0.06);
-                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.18);
-                        osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start(now + idx * 0.06);
-                        osc.stop(now + idx * 0.06 + 0.2);
-                    });
+                    osc.stop(now + 0.3);
+                } else if (type === 'drop') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(380, now);
+                    osc.frequency.exponentialRampToValueAtTime(620, now + 0.16);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(660, now);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.09);
                 }
-            } catch (e) {
-                // 忽略瀏覽器自動播放音訊限制
+            } catch (err) {
+                // 忽略瀏覽器自動播放限制
             }
         }
 
@@ -761,63 +896,92 @@
             }
 
             let eyesSvg = `
-                <circle cx="31" cy="43" r="3.2" fill="#5D4E60"/>
-                <circle cx="32" cy="42" r="1" fill="#FFFFFF"/>
-                <circle cx="49" cy="43" r="3.2" fill="#5D4E60"/>
-                <circle cx="50" cy="42" r="1" fill="#FFFFFF"/>
+                <circle cx="36" cy="46" r="3.6" fill="#5D4E60"/>
+                <circle cx="34.8" cy="44.6" r="1.3" fill="#FFFFFF"/>
+                <circle cx="60" cy="46" r="3.6" fill="#5D4E60"/>
+                <circle cx="58.8" cy="44.6" r="1.3" fill="#FFFFFF"/>
             `;
+
             let mouthSvg = `
-                <path d="M36 53 Q40 56 40 51 Q40 56 44 53" fill="none" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
+                <path d="M42.5 55 Q45.2 58 48 54.5 Q50.8 58 53.5 55" fill="none" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
             `;
+
+            let extraSvg = '';
 
             if (mood === 'happy') {
                 eyesSvg = `
-                    <path d="M27 44 Q31 39 35 44" fill="none" stroke="#5D4E60" stroke-width="2.4" stroke-linecap="round"/>
-                    <path d="M45 44 Q49 39 53 44" fill="none" stroke="#5D4E60" stroke-width="2.4" stroke-linecap="round"/>
+                    <path d="M31.5 46.5 Q36 41 40.5 46.5" fill="none" stroke="#5D4E60" stroke-width="2.6" stroke-linecap="round"/>
+                    <path d="M55.5 46.5 Q60 41 64.5 46.5" fill="none" stroke="#5D4E60" stroke-width="2.6" stroke-linecap="round"/>
                 `;
                 mouthSvg = `
-                    <path d="M35 52 Q40 59 45 52 Z" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M42.5 54 Q48 63 53.5 54 Z" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.8" stroke-linejoin="round"/>
+                `;
+                extraSvg = `
+                    <text x="12" y="24" font-size="13">✨</text>
+                    <text x="72" y="22" font-size="12">🌟</text>
                 `;
             } else if (mood === 'encourage') {
                 eyesSvg = `
-                    <circle cx="31" cy="43" r="3.2" fill="#5D4E60"/>
-                    <circle cx="49" cy="43" r="3.2" fill="#5D4E60"/>
-                    <path d="M27 37 L34 39" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M53 37 L46 39" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="36" cy="46" r="3.8" fill="#5D4E60"/>
+                    <circle cx="34.8" cy="44.5" r="1.4" fill="#FFFFFF"/>
+                    <circle cx="60" cy="46" r="3.8" fill="#5D4E60"/>
+                    <circle cx="58.8" cy="44.5" r="1.4" fill="#FFFFFF"/>
+                    <path d="M31.5 40.5 L40 42" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M64.5 40.5 L56 42" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
                 `;
                 mouthSvg = `
-                    <path d="M37 54 Q40 51 43 54" fill="none" stroke="#5D4E60" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M43 56 Q48 59.5 53 56" fill="none" stroke="#5D4E60" stroke-width="2.1" stroke-linecap="round"/>
+                `;
+                extraSvg = `
+                    <circle cx="75" cy="64" r="7.5" fill="#F6B96B" stroke="#5D4E60" stroke-width="2"/>
+                    <text x="75" y="67.5" text-anchor="middle" font-size="9">💪</text>
                 `;
             }
 
             box.innerHTML = `
-                <svg viewBox="0 0 80 80" class="w-full h-full drop-shadow-sm">
-                    <!-- 實驗室白袍領口 -->
-                    <path d="M18 74 C20 62, 60 62, 62 74 Z" fill="#FFFFFF" stroke="#5D4E60" stroke-width="2.2"/>
-                    <polygon points="34,63 40,73 46,63" fill="#89CFF0" stroke="#5D4E60" stroke-width="1.6"/>
-                    <!-- 柴犬尖耳朵 -->
-                    <polygon points="18,33 21,12 34,24" fill="#F4A460" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-                    <polygon points="21,29 23,17 31,24" fill="#FFE0B2"/>
-                    <polygon points="62,33 59,12 46,24" fill="#F4A460" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-                    <polygon points="59,29 57,17 49,24" fill="#FFE0B2"/>
-                    <!-- 柴犬圓臉 -->
-                    <ellipse cx="40" cy="44" rx="24" ry="21" fill="#F4A460" stroke="#5D4E60" stroke-width="2.2"/>
-                    <!-- 白色臉頰與口鼻區 -->
-                    <path d="M17 46 C22 44, 32 45, 40 43 C48 45, 58 44, 63 46 C61 58, 51 64, 40 64 C29 64, 19 58, 17 46 Z" fill="#FFFDF7"/>
-                    <!-- 眉毛白點 -->
-                    <ellipse cx="31" cy="36" rx="3" ry="1.8" fill="#FFFDF7"/>
-                    <ellipse cx="49" cy="36" rx="3" ry="1.8" fill="#FFFDF7"/>
-                    <!-- 可愛腮紅 -->
-                    <ellipse cx="24" cy="49" rx="3.8" ry="2.2" fill="#FF9EB5" opacity="0.7"/>
-                    <ellipse cx="56" cy="49" rx="3.8" ry="2.2" fill="#FF9EB5" opacity="0.7"/>
-                    <!-- 博士小圓眼鏡 -->
-                    <circle cx="31" cy="43" r="6.8" fill="none" stroke="#4BA3D3" stroke-width="1.8"/>
-                    <circle cx="49" cy="43" r="6.8" fill="none" stroke="#4BA3D3" stroke-width="1.8"/>
-                    <line x1="37.8" y1="43" x2="42.2" y2="43" stroke="#4BA3D3" stroke-width="1.8"/>
-                    <!-- 表情五官 -->
+                <svg viewBox="0 0 96 96" class="w-full h-full drop-shadow-sm">
+                    <!-- 粉嫩圓形背景徽章 -->
+                    <circle cx="48" cy="48" r="44" fill="#FFF6E5" stroke="#FF9EB5" stroke-width="3"/>
+
+                    <!-- 小柴尖尖耳朵 -->
+                    <polygon points="22,36 27,13 42,27" fill="#F6B96B" stroke="#5D4E60" stroke-width="2.4" stroke-linejoin="round"/>
+                    <polygon points="26,33 29,19 38,28" fill="#FF9EB5"/>
+                    <polygon points="74,36 69,13 54,27" fill="#F6B96B" stroke="#5D4E60" stroke-width="2.4" stroke-linejoin="round"/>
+                    <polygon points="70,33 67,19 58,28" fill="#FF9EB5"/>
+
+                    <!-- 小柴白袍衣領與粉紅領結 -->
+                    <path d="M26 84 C28 71, 68 71, 70 84 Z" fill="#FFFFFF" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
+                    <polygon points="48,73 41,69 41,77" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.6" stroke-linejoin="round"/>
+                    <polygon points="48,73 55,69 55,77" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.6" stroke-linejoin="round"/>
+                    <circle cx="48" cy="73" r="2.5" fill="#FFE082" stroke="#5D4E60" stroke-width="1.4"/>
+
+                    <!-- 圓滾滾柴犬臉龐 -->
+                    <ellipse cx="48" cy="48" rx="28" ry="24" fill="#F6B96B" stroke="#5D4E60" stroke-width="2.4"/>
+
+                    <!-- 奶油白臉頰與嘴巴區域 -->
+                    <path d="M23 49 C23 63, 35 70, 48 70 C61 70, 73 63, 73 49 C65 49, 57 46, 48 46 C39 46, 31 49, 23 49 Z" fill="#FFF8EE"/>
+                    <ellipse cx="48" cy="54" rx="12" ry="9" fill="#FFF8EE"/>
+
+                    <!-- 可愛豆豆白眉毛 -->
+                    <ellipse cx="36" cy="39.5" rx="3.2" ry="2" fill="#FFF8EE"/>
+                    <ellipse cx="60" cy="39.5" rx="3.2" ry="2" fill="#FFF8EE"/>
+
+                    <!-- 粉紅腮紅 -->
+                    <ellipse cx="29" cy="53" rx="4.5" ry="2.6" fill="#FF9EB5" opacity="0.65"/>
+                    <ellipse cx="67" cy="53" rx="4.5" ry="2.6" fill="#FF9EB5" opacity="0.65"/>
+
+                    <!-- 眼睛、鼻頭與嘴巴 -->
                     ${eyesSvg}
-                    <ellipse cx="40" cy="48.5" rx="3.2" ry="2.2" fill="#5D4E60"/>
+                    <ellipse cx="48" cy="50.5" rx="3.5" ry="2.4" fill="#5D4E60"/>
+                    <circle cx="47" cy="49.8" r="0.9" fill="#FFFFFF"/>
                     ${mouthSvg}
+
+                    <!-- 小柴博士圓框眼鏡 -->
+                    <circle cx="36" cy="46" r="8.5" fill="none" stroke="#4BA3D3" stroke-width="2"/>
+                    <circle cx="60" cy="46" r="8.5" fill="none" stroke="#4BA3D3" stroke-width="2"/>
+                    <line x1="44.5" y1="46" x2="51.5" y2="46" stroke="#4BA3D3" stroke-width="2"/>
+
+                    ${extraSvg}
                 </svg>
             `;
         }
@@ -831,831 +995,845 @@
         }
 
         /* ============================================================================
-           6. 題庫與計算過程生成引擎 (Hong Kong P6 Volume & Displacement Curriculum)
+           6. 題庫、精準小數位數判定與計算過程生成引擎
            ============================================================================ */
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function gcd(a, b) {
+            a = Math.abs(Math.round(a));
+            b = Math.abs(Math.round(b));
+            while (b !== 0) {
+                const t = b;
+                b = a % b;
+                a = t;
+            }
+            return a || 1;
+        }
+
+        /* 精確判定有理數 numerator / denominator 的小數位數是否不超過 2 位 */
+        function analyzeFraction(numerator, denominator) {
+            const g = gcd(numerator, denominator);
+            const p = numerator / g;
+            const q = denominator / g;
+            const isExactWithin2DP = (100 % q === 0);
+            const isDecimal = (q !== 1);
+            const exactStr = isExactWithin2DP
+                ? Number((p / q).toFixed(2)).toString()
+                : `${(p / q).toFixed(4)}...`;
+            return { isExactWithin2DP, isDecimal, exactStr, p, q };
+        }
+
+        function roundHalfUp(val, dp) {
+            const factor = Math.pow(10, dp);
+            return Math.round((val + Number.EPSILON) * factor) / factor;
+        }
+
         function generateProblemData(mode) {
             const obj = pickRandom(HEAVY_OBJECTS);
 
             if (mode === 'mode1') {
-                const useLarge = Math.random() < 0.45;
-                const capacity = useLarge ? 1000 : 500;
-                const minorStep = useLarge ? 20 : 10;
-                const medStep = useLarge ? 100 : 50;
-                const majorStep = useLarge ? 200 : 100;
-
-                const v1 = randInt(8, 16) * minorStep;
-                const diffSteps = randInt(6, 18);
-                const answer = diffSteps * minorStep;
-                const v2 = v1 + answer;
+                const is1000 = Math.random() < 0.45;
+                const capacity = is1000 ? 1000 : 500;
+                const step = is1000 ? 20 : 10;
+                const vBefore = is1000 ? randInt(12, 22) * 20 : randInt(12, 25) * 10;
+                const objVol = is1000 ? randInt(5, 16) * 20 : randInt(6, 18) * 10;
+                const vAfter = vBefore + objVol;
 
                 return {
+                    mode,
                     obj,
                     capacity,
-                    minorStep,
-                    medStep,
-                    majorStep,
-                    v1,
-                    v2,
-                    answer,
+                    step,
+                    vBefore,
+                    vAfter,
+                    answer: objVol,
+                    isExactDecimal: false,
                     unit: 'cm³',
-                    statement: `量杯原本盛有 ${v1} mL 的水。把一個「${obj.name}」完全浸沒在水中後，水位上升至 ${v2} mL。求這個${obj.name}的體積是多少 cm³？`,
-                    hint1: `還記得「1 mL = 1 cm³」嗎？重物完全浸沒在水中時，上升的水量就等於重物的體積（放入後水位 − 放入前水位）。`,
-                    hint2: `觀察量杯刻度：放入前水位是 ${v1} mL，放入後水位上升到 ${v2} mL。請計算：${v2} − ${v1} = ？`,
-                    summary: `${v2} − ${v1} = ${answer} mL = ${answer} cm³`,
+                    statement: `量杯原本盛有 ${vBefore} mL 的水。把一個「${obj.name}」完全浸沒在水中後，請細心觀察下圖量杯的水位刻度，這個${obj.name}的體積是多少 cm³？`,
+                    summary: `觀察量杯刻度得知水位上升至 ${vAfter} mL，${vAfter} mL − ${vBefore} mL = ${objVol} mL，所以${obj.name}的體積是 ${objVol} cm³。`,
+                    hint1: `重物完全浸沒在水中時，上升的水的體積等於重物的體積（1 mL = 1 cm³）。請觀察量杯的紅色指標線，讀出放入重物後的水位！`,
+                    hint2: `量杯每小格代表 ${step} mL，先數出水平線對應的新水位（mL），再減去原來的 ${vBefore} mL。`,
                     steps: [
-                        { title: '步驟 1：讀取放入前水位', desc: `觀察左方量杯刻度，原本水的體積是 ${v1} mL。` },
-                        { title: '步驟 2：讀取放入後水位', desc: `放入${obj.name}後，右方量杯的水位上升至 ${v2} mL。` },
-                        { title: '步驟 3：計算上升的水量', desc: `上升的水量 = ${v2} − ${v1} = ${answer} mL。` },
-                        { title: '步驟 4：換算體積單位', desc: `因為 1 mL = 1 cm³，所以${obj.name}的體積是 ${answer} cm³。` }
+                        { title: '步驟 1：讀取原來水位', desc: `放入${obj.name}前，量杯內的水位是 ${vBefore} mL。` },
+                        { title: '步驟 2：讀取放入後水位', desc: `放入${obj.name}後，水位上升至 ${vAfter} mL。` },
+                        { title: '步驟 3：計算上升水量', desc: `上升的水的體積 = ${vAfter} − ${vBefore} = ${objVol} mL。` },
+                        { title: '步驟 4：換算體積單位', desc: `因為 1 mL = 1 cm³，所以${obj.name}的體積是 ${objVol} cm³。` }
                     ]
                 };
             }
 
             if (mode === 'mode2_1') {
-                const capacity = 400;
-                const minorStep = 10;
-                const medStep = 50;
-                const majorStep = 100;
-                const answer = randInt(7, 34) * 10;
+                // 選項二（程度一）：刪去題目中直接寫出的排出水量，要求學生觀察量杯刻度
+                const capacity = pickRandom([300, 400, 500]);
+                const step = capacity === 500 ? 20 : 10;
+                const objVol = capacity === 500 ? randInt(4, 21) * 20 : randInt(6, (capacity / 10) - 4) * 10;
 
                 return {
+                    mode,
                     obj,
                     capacity,
-                    minorStep,
-                    medStep,
-                    majorStep,
-                    answer,
+                    step,
+                    vBefore: 0,
+                    vAfter: objVol,
+                    answer: objVol,
+                    isExactDecimal: false,
                     unit: 'cm³',
-                    statement: `排水筒內原本裝滿水直至溢水口水位線。把「${obj.name}」完全沉入排水筒後，溢出的水全部流進右方的量杯中，量杯水位顯示為 ${answer} mL。這個${obj.name}的體積是多少 cm³？`,
-                    hint1: `排水筒原本已裝滿水至溢水口，所以放入重物後「溢出的水體積」就完全等於「重物的體積」，且 1 mL = 1 cm³。`,
-                    hint2: `請仔細讀取右方量杯中溢出水的水位刻度（每一小格代表 10 mL），紅色指標正指向 ${answer} mL！`,
-                    summary: `溢出水量 ${answer} mL = ${answer} cm³`,
+                    statement: `排水筒內已注滿水至溢水口。把一個「${obj.name}」完全放入排水筒後，溢出的水全部流入下方的量杯中。請細心觀察下圖量杯的水位刻度，這個${obj.name}的體積是多少 cm³？`,
+                    summary: `觀察量杯刻度得知溢出的水共有 ${objVol} mL，所以${obj.name}的體積是 ${objVol} cm³。`,
+                    hint1: `排水筒原本已注滿水至溢水口，所以溢出的水的體積就等於重物的體積（1 mL = 1 cm³）。請觀察下方量杯的紅色指標線！`,
+                    hint2: `下方量杯每小格代表 ${step} mL，細心數一數大刻度線上的小格，找出水平線對應的 mL 讀數。`,
                     steps: [
-                        { title: '步驟 1：理解排水筒原理', desc: `排水筒原本裝滿水至溢水口，重物排開多少水，就會流出多少水。` },
-                        { title: '步驟 2：讀取量杯刻度', desc: `量杯每一小格是 10 mL，溢出的水在量杯中的水位是 ${answer} mL。` },
-                        { title: '步驟 3：建立體積關係', desc: `${obj.name}的體積 = 溢出的水體積 = ${answer} mL。` },
-                        { title: '步驟 4：寫出最終單位', desc: `由於 1 mL = 1 cm³，因此${obj.name}的體積是 ${answer} cm³。` }
+                        { title: '步驟 1：理解排水原理', desc: `排水筒原本已盛水至溢水口，投入重物後排出的水量等於重物體積。` },
+                        { title: '步驟 2：觀察並讀取量杯水位', desc: `量杯每小格為 ${step} mL，水面水平線正對準 ${objVol} mL 刻度線。` },
+                        { title: '步驟 3：單位換算', desc: `根據容量與體積關係：1 mL = 1 cm³。` },
+                        { title: '步驟 4：得出最終答案', desc: `${objVol} mL = ${objVol} cm³，因此${obj.name}的體積是 ${objVol} cm³。` }
                     ]
                 };
             }
 
             if (mode === 'mode2_2') {
-                const length = pickRandom([8, 10, 12, 14, 15, 16, 20]);
-                const width = pickRandom([5, 6, 8, 10]);
-                const boxHeight = 10;
-                const waterHeight = randInt(2, 6);
-                const answer = length * width * waterHeight;
+                // 允許水高出現 1 位或 2 位小數，確保準確值在兩位小數內完全顯示、不進位
+                const useDecimalH = Math.random() < 0.45;
+                const boxL = useDecimalH ? pickRandom([9, 11, 13, 15]) : pickRandom([8, 10, 12, 14, 15]);
+                const boxW = useDecimalH ? pickRandom([5, 7, 9]) : pickRandom([5, 6, 8, 10]);
+                const boxH = pickRandom([10, 12]);
+                const waterH = useDecimalH ? pickRandom([1.5, 2.5, 3.5, 1.25, 2.25]) : randInt(2, 6);
+                const objVol = Number((boxL * boxW * waterH).toFixed(2));
+                const isExactDecimal = !Number.isInteger(objVol);
 
                 return {
+                    mode,
                     obj,
-                    length,
-                    width,
-                    boxHeight,
-                    waterHeight,
-                    answer,
+                    boxL,
+                    boxW,
+                    boxH,
+                    waterH,
+                    answer: objVol,
+                    isExactDecimal,
                     unit: 'cm³',
-                    statement: `把「${obj.name}」完全沉入裝滿水至溢水口的排水筒後，溢出的水全部流進一個長 ${length} cm、闊 ${width} cm、高 ${boxHeight} cm 的透明方盒中，量得方盒內的水高為 ${waterHeight} cm。求${obj.name}的體積是多少 cm³？`,
-                    hint1: `溢出的水在透明方盒中形成一個長方體水柱！重物的體積 = 溢出水的體積 = 方盒的長 × 方盒的闊 × 溢出水的高（注意：不是乘以方盒總高 ${boxHeight} cm 喔！）。`,
-                    hint2: `方盒的長是 ${length} cm，闊是 ${width} cm，溢出水的水高是 ${waterHeight} cm。請計算：${length} × ${width} × ${waterHeight} = ？`,
-                    summary: `${length} × ${width} × ${waterHeight} = ${answer} cm³`,
+                    statement: `排水筒內已注滿水至溢水口。把一個「${obj.name}」完全浸入排水筒後，溢出的水全部流入下方長 ${boxL} cm、闊 ${boxW} cm、高 ${boxH} cm 的透明方盒中，量得盒內水高 ${waterH} cm。這個${obj.name}的體積是多少 cm³？`,
+                    summary: `${boxL} × ${boxW} × ${waterH} = ${objVol} cm³，溢出的水體積即${obj.name}的體積。`,
+                    hint1: `溢出的水的體積等於重物的體積。用「長 × 闊 × 水高」計算盒內水的體積（注意：不是乘方盒的總高度 ${boxH} cm 喔！）。`,
+                    hint2: `把方盒的長、闊與水高相乘：${boxL} × ${boxW} × ${waterH}${isExactDecimal ? '（準確值至小數點後兩位，請完全寫出，不用進位）' : ''}。`,
                     steps: [
-                        { title: '步驟 1：找出溢出水的形狀', desc: `溢出的水裝在長方體透明方盒內，形成長 ${length} cm、闊 ${width} cm、高 ${waterHeight} cm 的水柱。` },
-                        { title: '步驟 2：計算方盒底面積', desc: `底面積 = 長 × 闊 = ${length} × ${width} = ${length * width} cm²。` },
-                        { title: '步驟 3：計算溢出水體積', desc: `溢出水體積 = 底面積 × 水高 = ${length * width} × ${waterHeight} = ${answer} cm³。` },
-                        { title: '步驟 4：得出重物體積', desc: `重物體積等於溢出水的體積，所以${obj.name}的體積是 ${answer} cm³。` }
+                        { title: '步驟 1：排水原理', desc: `排水筒已注滿至溢水口，故溢出的水體積等於${obj.name}的體積。` },
+                        { title: '步驟 2：找出盒內水柱尺寸', desc: `水在方盒內形成一個長 ${boxL} cm、闊 ${boxW} cm、高 ${waterH} cm 的長方體。` },
+                        { title: '步驟 3：運用長方體體積公式', desc: `水的體積 = 長 × 闊 × 水高 = ${boxL} × ${boxW} × ${waterH}。` },
+                        { title: '步驟 4：計算結果', desc: `${boxL * boxW} × ${waterH} = ${objVol} cm³，即${obj.name}的體積是 ${objVol} cm³。` }
                     ]
                 };
             }
 
             if (mode === 'mode3_1') {
-                const length = pickRandom([10, 12, 15, 16, 20]);
-                const width = pickRandom([5, 6, 8, 10]);
-                const tankHeight = 16;
-                const h1 = randInt(4, 8);
-                const rise = pickRandom([1.5, 2, 2.5, 3, 3.5, 4, 5]);
-                const h2 = roundTo(h1 + rise, 1);
-                const answer = Math.round(length * width * rise);
+                // 支援準確小數（至小數點後兩位，完全顯示不用進位）
+                const useDecimalDelta = Math.random() < 0.5;
+                const boxL = useDecimalDelta ? pickRandom([11, 13, 15, 17]) : pickRandom([10, 12, 14, 16, 20]);
+                const boxW = useDecimalDelta ? pickRandom([5, 7, 9]) : pickRandom([6, 8, 10, 12]);
+                const boxH = pickRandom([12, 14, 15]);
+                const hBefore = randInt(4, 6);
+                const deltaH = useDecimalDelta ? pickRandom([1.5, 2.5, 3.5, 1.25, 2.25]) : pickRandom([1.5, 2, 2.5, 3, 3.5, 4]);
+                const hAfter = Number((hBefore + deltaH).toFixed(2));
+                const baseArea = boxL * boxW;
+                const objVol = Number((baseArea * deltaH).toFixed(2));
+                const isExactDecimal = !Number.isInteger(objVol);
 
                 return {
+                    mode,
                     obj,
-                    length,
-                    width,
-                    tankHeight,
-                    h1,
-                    h2,
-                    rise,
-                    answer,
+                    boxL,
+                    boxW,
+                    boxH,
+                    hBefore,
+                    hAfter,
+                    deltaH,
+                    baseArea,
+                    answer: objVol,
+                    isExactDecimal,
                     unit: 'cm³',
-                    statement: `一個長 ${length} cm、闊 ${width} cm、高 ${tankHeight} cm 的長方體容器內，原本水深 ${h1} cm。把「${obj.name}」完全浸沒在水中後，水位上升至 ${h2} cm。求${obj.name}的體積是多少 cm³？`,
-                    hint1: `重物體積等於「升高那層水的體積」！先用「放入後水位 − 原來水位」找出水位升高了多少 cm，再乘以容器底面積（長 × 闊）。`,
-                    hint2: `水位升高了 ${h2} − ${h1} = ${rise} cm；容器底面積是 ${length} × ${width} = ${length * width} cm²。請計算：${length * width} × ${rise} = ？`,
-                    summary: `${length} × ${width} × (${h2} − ${h1}) = ${answer} cm³`,
+                    statement: `一個長 ${boxL} cm、闊 ${boxW} cm、高 ${boxH} cm 的長方體容器內原本水深 ${hBefore} cm。放入一個「${obj.name}」並完全浸沒後，水位上升至 ${hAfter} cm。這個${obj.name}的體積是多少 cm³？`,
+                    summary: `水位升高了 ${deltaH} cm，${obj.name}體積 = ${boxL} × ${boxW} × ${deltaH} = ${objVol} cm³。`,
+                    hint1: `重物體積 = 容器底面積 × 升高的水位，即「長 × 闊 × (放入後水深 − 原來水深)」。`,
+                    hint2: `先算升高了的水位：${hAfter} − ${hBefore} = ${deltaH} cm，再計算 ${boxL} × ${boxW} × ${deltaH}${isExactDecimal ? '（準確值請完全顯示，不用進位）' : ''}。`,
                     steps: [
-                        { title: '步驟 1：計算升高的水位', desc: `升高的水位 = 放入後水位 − 原來水位 = ${h2} − ${h1} = ${rise} cm。` },
-                        { title: '步驟 2：計算容器底面積', desc: `容器底面積 = 長 × 闊 = ${length} × ${width} = ${length * width} cm²。` },
-                        { title: '步驟 3：計算升高水層體積', desc: `重物體積 = 底面積 × 升高的水位 = ${length * width} × ${rise} = ${answer} cm³。` },
-                        { title: '步驟 4：核對答案單位', desc: `因此，${obj.name}的體積是 ${answer} cm³。` }
+                        { title: '步驟 1：計算升高的水位', desc: `升高的水位 = ${hAfter} − ${hBefore} = ${deltaH} cm。` },
+                        { title: '步驟 2：計算容器底面積', desc: `底面積 = 長 × 闊 = ${boxL} × ${boxW} = ${baseArea} cm²。` },
+                        { title: '步驟 3：計算重物體積', desc: `重物體積 = 底面積 × 升高的水位 = ${baseArea} × ${deltaH}。` },
+                        { title: '步驟 4：得出最終答案', desc: `${baseArea} × ${deltaH} = ${objVol} cm³，即${obj.name}的體積是 ${objVol} cm³。` }
                     ]
                 };
             }
 
-            // mode3_2：已知重物體積，求升高的水位
-            const length = pickRandom([10, 12, 15, 16, 20]);
-            const width = pickRandom([5, 6, 8, 10]);
-            const tankHeight = 16;
-            const h1 = randInt(4, 8);
-            const answer = pickRandom([1.5, 2, 2.5, 3, 3.5, 4, 5]);
-            const volume = Math.round(length * width * answer);
-            const h2 = roundTo(h1 + answer, 1);
+            // mode3_2：已知重物體積，找出升高的水位
+            // 平衡出題類型：1) 整數 2) 準確至一位或兩位小數（完全顯示不用進位） 3) 超過兩位小數（加入四種近似值提示之一）
+            const questionType = pickRandom(['exact2dp', 'exact2dp', 'approx', 'approx', 'integer']);
+            let boxL, boxW, baseArea, objVol;
+
+            if (questionType === 'integer') {
+                boxL = pickRandom([10, 12, 15, 20]);
+                boxW = pickRandom([5, 6, 8, 10]);
+                baseArea = boxL * boxW;
+                objVol = baseArea * randInt(2, 5);
+            } else if (questionType === 'exact2dp') {
+                // 刻意構造分母約簡後為 2, 4, 5, 10, 20, 25, 50 的組合（準確值至 1 或 2 位小數）
+                const presets = [
+                    { l: 12, w: 10, v: 150 }, // 1.25
+                    { l: 12, w: 10, v: 210 }, // 1.75
+                    { l: 12, w: 10, v: 198 }, // 1.65
+                    { l: 16, w: 10, v: 200 }, // 1.25
+                    { l: 16, w: 10, v: 280 }, // 1.75
+                    { l: 15, w: 8, v: 150 },  // 1.25
+                    { l: 15, w: 8, v: 270 },  // 2.25
+                    { l: 10, w: 8, v: 108 },  // 1.35
+                    { l: 10, w: 8, v: 180 },  // 2.25
+                    { l: 14, w: 10, v: 175 }, // 1.25
+                    { l: 15, w: 6, v: 135 }   // 1.5
+                ];
+                const chosen = pickRandom(presets);
+                boxL = chosen.l;
+                boxW = chosen.w;
+                baseArea = boxL * boxW;
+                objVol = chosen.v;
+            } else {
+                // 超過兩位小數（如 3 位小數 3.125 或循環小數 1.666...、1.416...）
+                const approxPresets = [
+                    { l: 12, w: 10, v: 200 }, // 1.6666...
+                    { l: 12, w: 10, v: 250 }, // 2.0833...
+                    { l: 12, w: 10, v: 170 }, // 1.4166...
+                    { l: 10, w: 8, v: 250 },  // 3.125 (3位小數)
+                    { l: 16, w: 10, v: 220 }, // 1.375 (3位小數)
+                    { l: 15, w: 10, v: 220 }, // 1.4666...
+                    { l: 14, w: 10, v: 220 }, // 1.5714...
+                    { l: 12, w: 9, v: 200 }   // 1.8518...
+                ];
+                const chosen = pickRandom(approxPresets);
+                boxL = chosen.l;
+                boxW = chosen.w;
+                baseArea = boxL * boxW;
+                objVol = chosen.v;
+            }
+
+            const fracInfo = analyzeFraction(objVol, baseArea);
+            const rawDelta = objVol / baseArea;
+            let answer, approxNote = '', isExactDecimal = false, step4Desc = '', summaryText = '';
+
+            if (fracInfo.isExactWithin2DP) {
+                answer = Number(fracInfo.exactStr);
+                isExactDecimal = fracInfo.isDecimal;
+                approxNote = '';
+                summaryText = `容器底面積 = ${boxL} × ${boxW} = ${baseArea} cm²，升高水位 = ${objVol} ÷ ${baseArea} = ${answer} cm。`;
+                step4Desc = isExactDecimal
+                    ? `${objVol} ÷ ${baseArea} = ${answer} cm（準確值至小數點後兩位，完全顯示不用進位）。`
+                    : `${objVol} ÷ ${baseArea} = ${answer} cm，所以水位升高了 ${answer} cm。`;
+            } else {
+                const chosenApprox = pickRandom(APPROX_PHRASES);
+                answer = roundHalfUp(rawDelta, chosenApprox.dp);
+                approxNote = `（${chosenApprox.text}）`;
+                summaryText = `${objVol} ÷ ${baseArea} = ${fracInfo.exactStr} cm，${chosenApprox.text}為 ${answer} cm。`;
+                step4Desc = `${objVol} ÷ ${baseArea} = ${fracInfo.exactStr} cm，${chosenApprox.text}，答案是 ${answer} cm。`;
+            }
+
+            const boxH = pickRandom([12, 15]);
+            const hBefore = randInt(4, 5);
+            const hAfter = Number((hBefore + rawDelta).toFixed(2));
 
             return {
+                mode: 'mode3_2',
                 obj,
-                length,
-                width,
-                tankHeight,
-                h1,
-                h2,
-                volume,
+                boxL,
+                boxW,
+                boxH,
+                hBefore,
+                hAfter,
+                deltaH: answer,
+                baseArea,
                 answer,
+                isExactDecimal,
+                approxNote,
                 unit: 'cm',
-                statement: `一個長 ${length} cm、闊 ${width} cm、高 ${tankHeight} cm 的長方體容器內，原本水深 ${h1} cm。現把一個體積是 ${volume} cm³ 的「${obj.name}」完全浸沒在水中（水沒有溢出），求水位升高了多少 cm？`,
-                hint1: `因為「重物體積 = 容器底面積 × 升高的水位」，反過來計算，只要把「重物體積 ÷ 容器底面積（長 × 闊）」就能求出升高的水位！`,
-                hint2: `容器底面積 = ${length} × ${width} = ${length * width} cm²。請將重物體積除以底面積：${volume} ÷ ${length * width} = ？`,
-                summary: `${volume} ÷ (${length} × ${width}) = ${answer} cm`,
+                statement: `一個長 ${boxL} cm、闊 ${boxW} cm、高 ${boxH} cm 的長方體容器內盛有水（水深 ${hBefore} cm）。把一個體積是 ${objVol} cm³ 的「${obj.name}」完全浸沒在水中後，水位升高了多少 cm？${approxNote}`,
+                summary: summaryText,
+                hint1: `因為「重物體積 = 容器底面積 × 升高的水位」，所以「升高的水位 = 重物體積 ÷ (長 × 闊)」。`,
+                hint2: approxNote
+                    ? `先算底面積：${boxL} × ${boxW} = ${baseArea} cm²，再用 ${objVol} ÷ ${baseArea}，最後記得${approxNote.replace(/[（）]/g, '')}！`
+                    : `先算底面積：${boxL} × ${boxW} = ${baseArea} cm²，再用 ${objVol} ÷ ${baseArea}${isExactDecimal ? '（準確值至小數點後兩位，請完全寫出，不用進位）' : ''}。`,
                 steps: [
-                    { title: '步驟 1：找出容器底面積', desc: `容器底面積 = 長 × 闊 = ${length} × ${width} = ${length * width} cm²。` },
-                    { title: '步驟 2：運用體積逆運算公式', desc: `升高水層的體積等於${obj.name}體積（${volume} cm³），升高的水位 = 重物體積 ÷ 底面積。` },
-                    { title: '步驟 3：代入數字計算', desc: `升高的水位 = ${volume} ÷ ${length * width} = ${answer} cm。` },
-                    { title: '步驟 4：驗算水位高度', desc: `放入後新水位為 ${h1} + ${answer} = ${h2} cm（小於容器高度 ${tankHeight} cm，水沒有溢出），答案是 ${answer} cm。` }
+                    { title: '步驟 1：理解體積與水位關係', desc: `上升的水柱體積等於${obj.name}的體積（${objVol} cm³）。` },
+                    { title: '步驟 2：計算容器底面積', desc: `容器底面積 = 長 × 闊 = ${boxL} × ${boxW} = ${baseArea} cm²。` },
+                    { title: '步驟 3：逆向計算升高水位', desc: `升高的水位 = 重物體積 ÷ 底面積 = ${objVol} ÷ ${baseArea}。` },
+                    { title: '步驟 4：得出最終答案', desc: step4Desc }
                 ]
             };
         }
 
         /* ============================================================================
-           7. 可愛重物向量圖繪製與互動實驗台主渲染器
+           7. SVG 互動實驗器具與可愛重物繪製引擎
            ============================================================================ */
         function renderHeavyObjectSvg(obj, cx, cy, scale = 1) {
-            let shape = '';
-            switch (obj.id) {
-                case 'iron':
-                    shape = `
-                        <rect x="-18" y="-12" width="36" height="24" rx="5" fill="#E6A15C" stroke="#5D4E60" stroke-width="2.2"/>
-                        <line x1="-12" y1="-6" x2="12" y2="-6" stroke="#FFE0B2" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="-6" cy="3" r="1.5" fill="#5D4E60"/>
-                        <circle cx="6" cy="3" r="1.5" fill="#5D4E60"/>
-                    `;
-                    break;
-                case 'rubik':
-                    shape = `
-                        <rect x="-15" y="-15" width="30" height="30" rx="4" fill="#FF9EB5" stroke="#5D4E60" stroke-width="2.2"/>
-                        <line x1="-5" y1="-15" x2="-5" y2="15" stroke="#5D4E60" stroke-width="1.6"/>
-                        <line x1="5" y1="-15" x2="5" y2="15" stroke="#5D4E60" stroke-width="1.6"/>
-                        <line x1="-15" y1="-5" x2="15" y2="-5" stroke="#5D4E60" stroke-width="1.6"/>
-                        <line x1="-15" y1="5" x2="15" y2="5" stroke="#5D4E60" stroke-width="1.6"/>
-                        <rect x="-4" y="-4" width="8" height="8" fill="#FFE082"/>
-                    `;
-                    break;
-                case 'gold':
-                    shape = `
-                        <circle cx="0" cy="0" r="15" fill="#90A4AE" stroke="#5D4E60" stroke-width="2.2"/>
-                        <circle cx="-5" cy="-5" r="3.5" fill="#ECEFF1"/>
-                    `;
-                    break;
-                case 'duck':
-                    shape = `
-                        <ellipse cx="0" cy="4" rx="15" ry="11" fill="#FFE082" stroke="#5D4E60" stroke-width="2.2"/>
-                        <circle cx="-6" cy="-7" r="8.5" fill="#FFE082" stroke="#5D4E60" stroke-width="2.2"/>
-                        <polygon points="-14,-7 -20,-5 -14,-3" fill="#FF8A65" stroke="#5D4E60" stroke-width="1.6"/>
-                        <circle cx="-8" cy="-9" r="1.5" fill="#5D4E60"/>
-                    `;
-                    break;
-                case 'crystal':
-                    shape = `
-                        <circle cx="0" cy="0" r="14" fill="#80DEEA" stroke="#5D4E60" stroke-width="2.2"/>
-                        <path d="M-6 -6 Q0 -10 6 -6" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
-                    `;
-                    break;
-                case 'conch':
-                    shape = `
-                        <ellipse cx="0" cy="0" rx="16" ry="13" fill="#FFAB91" stroke="#5D4E60" stroke-width="2.2"/>
-                        <path d="M0 0 C4 -4, 8 2, 2 6 C-5 9, -10 0, -3 -6 C4 -10, 12 -3, 9 5" fill="none" stroke="#5D4E60" stroke-width="1.8" stroke-linecap="round"/>
-                    `;
-                    break;
-                case 'block':
-                    shape = `
-                        <polygon points="0,-16 16,0 0,16 -16,0" fill="#B39DDB" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-                        <polygon points="0,-16 16,0 0,3 -16,0" fill="#D1C4E9"/>
-                    `;
-                    break;
-                case 'pebble':
-                default:
-                    shape = `
-                        <path d="M-15 4 C-17 -7, -6 -15, 5 -13 C15 -11, 18 -1, 14 8 C10 15, -13 14, -15 4 Z" fill="#BCAAA4" stroke="#5D4E60" stroke-width="2.2"/>
-                        <ellipse cx="-4" cy="-5" rx="4" ry="2" fill="#EFEBE9" opacity="0.8"/>
-                    `;
-                    break;
+            if (obj.type === 'cube') {
+                return `
+                    <g transform="translate(${cx}, ${cy}) scale(${scale})">
+                        <polygon points="-22,-10 -8,-22 22,-22 8,-10" fill="#B0BEC5" stroke="#5D4E60" stroke-width="2" stroke-linejoin="round"/>
+                        <rect x="-22" y="-10" width="30" height="28" rx="3" fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                        <polygon points="8,-10 22,-22 22,6 8,18" fill="#78909C" stroke="#5D4E60" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="-11" cy="2" r="2" fill="#5D4E60"/>
+                        <circle cx="-1" cy="2" r="2" fill="#5D4E60"/>
+                        <path d="M-8 7 Q-6 9.5 -4 7" fill="none" stroke="#5D4E60" stroke-width="1.8" stroke-linecap="round"/>
+                    </g>
+                `;
             }
-            return `<g transform="translate(${cx}, ${cy}) scale(${scale})">${shape}</g>`;
+            if (obj.type === 'shell') {
+                return `
+                    <g transform="translate(${cx}, ${cy}) scale(${scale})">
+                        <path d="M-22 6 C-24 -12, -10 -22, 0 -22 C10 -22, 24 -12, 22 6 C16 14, 10 18, 0 18 C-10 18, -16 14, -22 6 Z"
+                              fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                        <path d="M0 -21 L0 16 M-11 -18 L-6 15 M11 -18 L6 15" stroke="#E57373" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="-5" cy="2" r="1.8" fill="#5D4E60"/>
+                        <circle cx="5" cy="2" r="1.8" fill="#5D4E60"/>
+                        <path d="M-2.5 6.5 Q0 9 2.5 6.5" fill="none" stroke="#5D4E60" stroke-width="1.7" stroke-linecap="round"/>
+                    </g>
+                `;
+            }
+            if (obj.type === 'duck') {
+                return `
+                    <g transform="translate(${cx}, ${cy}) scale(${scale})">
+                        <ellipse cx="0" cy="7" rx="21" ry="13" fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                        <circle cx="-6" cy="-8" r="12" fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                        <polygon points="-17,-8 -25,-5 -17,-2" fill="#FF8A65" stroke="#5D4E60" stroke-width="1.8" stroke-linejoin="round"/>
+                        <circle cx="-9" cy="-10" r="2" fill="#5D4E60"/>
+                        <path d="M-2 5 Q6 1 11 7 Q5 12 -2 5 Z" fill="#FFD54F" stroke="#5D4E60" stroke-width="1.5"/>
+                    </g>
+                `;
+            }
+            if (obj.type === 'sphere') {
+                return `
+                    <g transform="translate(${cx}, ${cy}) scale(${scale})">
+                        <circle cx="0" cy="0" r="20" fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                        <ellipse cx="-7" cy="-8" rx="6" ry="3.5" transform="rotate(-30 -7 -8)" fill="#FFFFFF" opacity="0.7"/>
+                        <circle cx="-5" cy="2" r="1.9" fill="#5D4E60"/>
+                        <circle cx="5" cy="2" r="1.9" fill="#5D4E60"/>
+                        <path d="M-2.5 6.5 Q0 9 2.5 6.5" fill="none" stroke="#5D4E60" stroke-width="1.7" stroke-linecap="round"/>
+                    </g>
+                `;
+            }
+            // 預設：可愛鵝卵石
+            return `
+                <g transform="translate(${cx}, ${cy}) scale(${scale})">
+                    <path d="M-23 4 C-24 -10, -10 -18, 3 -17 C16 -16, 25 -6, 22 7 C19 17, -18 17, -23 4 Z"
+                          fill="${obj.color}" stroke="#5D4E60" stroke-width="2"/>
+                    <circle cx="-6" cy="0" r="1.9" fill="#5D4E60"/>
+                    <circle cx="5" cy="0" r="1.9" fill="#5D4E60"/>
+                    <path d="M-2.5 4.5 Q0 7 2.5 4.5" fill="none" stroke="#5D4E60" stroke-width="1.7" stroke-linecap="round"/>
+                </g>
+            `;
         }
 
-        function renderExperimentCanvas() {
-            const svgEl = document.getElementById('lab-svg');
-            const q = state.currentQuestion;
-            if (!svgEl || !q) return;
-
-            const t = state.viewPhase === 'before' ? 0 : state.animProgress;
-
-            if (state.currentMode === 'mode1') {
-                svgEl.innerHTML = drawMode1Svg(q, t);
-            } else if (state.currentMode === 'mode2_1') {
-                svgEl.innerHTML = drawMode2_1Svg(q, t);
-            } else if (state.currentMode === 'mode2_2') {
-                svgEl.innerHTML = drawMode2_2Svg(q, t);
-            } else if (state.currentMode === 'mode3_1') {
-                svgEl.innerHTML = drawMode3_1Svg(q, t);
-            } else if (state.currentMode === 'mode3_2') {
-                svgEl.innerHTML = drawMode3_2Svg(q, t);
-            }
-        }
-
-        // 輔助函式：繪製精準刻度的圓柱量杯（水位一律以筆直水平線表示，無橢圓）
-        function drawMeasuringCylinder({ x, y, w, h, capacity, minorStep, medStep, majorStep, waterVol, obj = null, objDropT = 0, labelText = '' }) {
-            const bottomY = y + h;
-            const scaleTopY = y + Math.min(26, Math.round(h * 0.13));
-            const scaleBottomY = bottomY - Math.min(12, Math.round(h * 0.06));
-            const scaleHeight = scaleBottomY - scaleTopY;
-
-            const volToY = (vol) => scaleBottomY - (vol / capacity) * scaleHeight;
-            const currentWaterY = volToY(waterVol);
+        /* 輔助函式：繪製精準刻度量杯（水面以筆直水平線表示，無橢圓） */
+        function renderCylinderSvg({ x, y, width, height, capacity, step, currentVol, showPointer, labelText }) {
+            const innerBottom = y + height - 10;
+            const innerTop = y + 26;
+            const usableH = innerBottom - innerTop;
+            const waterH = Math.max(0, Math.min(usableH, (currentVol / capacity) * usableH));
+            const waterY = innerBottom - waterH;
 
             let ticksSvg = '';
-            for (let v = minorStep; v <= capacity; v += minorStep) {
-                const ty = volToY(v);
-                if (v % majorStep === 0) {
-                    ticksSvg += `
-                        <line x1="${x + 2}" y1="${ty}" x2="${x + 20}" y2="${ty}" stroke="#5D4E60" stroke-width="2"/>
-                        <text x="${x + 24}" y="${ty + 4}" font-size="11" font-weight="800" fill="#5D4E60">${v}</text>
-                    `;
-                } else if (v % medStep === 0) {
-                    ticksSvg += `
-                        <line x1="${x + 2}" y1="${ty}" x2="${x + 14}" y2="${ty}" stroke="#5D4E60" stroke-width="1.5"/>
-                    `;
-                } else {
-                    ticksSvg += `
-                        <line x1="${x + 2}" y1="${ty}" x2="${x + 9}" y2="${ty}" stroke="#8B7A8E" stroke-width="1"/>
-                    `;
+            const totalTicks = Math.round(capacity / step);
+            const majorInterval = capacity === 1000 ? 200 : 100;
+            const medInterval = majorInterval / 2;
+
+            for (let i = 1; i <= totalTicks; i++) {
+                const vol = i * step;
+                const ty = innerBottom - (vol / capacity) * usableH;
+                const isMajor = vol % majorInterval === 0;
+                const isMed = vol % medInterval === 0;
+                const tickLen = isMajor ? 22 : (isMed ? 14 : 8);
+                const strokeW = isMajor ? 2.2 : 1.2;
+                const strokeCol = isMajor ? '#5D4E60' : '#8B7A8E';
+
+                ticksSvg += `<line x1="${x + 6}" y1="${ty}" x2="${x + 6 + tickLen}" y2="${ty}" stroke="${strokeCol}" stroke-width="${strokeW}" stroke-linecap="round"/>`;
+                if (isMajor) {
+                    ticksSvg += `<text x="${x + 33}" y="${ty + 4.5}" font-size="13" font-weight="800" fill="#5D4E60">${vol}</text>`;
                 }
             }
 
-            // 重物位置（從量杯上方垂落到杯底）
-            let objSvg = '';
-            if (obj) {
-                const startObjY = y - 22;
-                const endObjY = scaleBottomY - 16;
-                const curObjY = startObjY + (endObjY - startObjY) * objDropT;
-                objSvg = renderHeavyObjectSvg(obj, x + w * 0.62, curObjY, 0.85);
+            let waterSvg = '';
+            if (currentVol > 0) {
+                waterSvg = `
+                    <!-- 筆直平頂水柱 -->
+                    <rect x="${x + 5}" y="${waterY}" width="${width - 10}" height="${waterH + 4}" rx="4" fill="url(#waterGrad)"/>
+                    <!-- 清晰筆直水平線表示水位（無橢圓） -->
+                    <line x1="${x + 5}" y1="${waterY}" x2="${x + width - 5}" y2="${waterY}" stroke="#1E88E5" stroke-width="2.6" stroke-linecap="round"/>
+                `;
             }
 
-            // 紅色虛線與三角形指標標記目前水位
-            const pointerSvg = waterVol > 0 ? `
-                <g transform="translate(${x + w + 4}, ${currentWaterY})">
-                    <polygon points="0,0 10,-6 10,6" fill="#F06E90"/>
-                    <line x1="-${w + 4}" y1="0" x2="0" y2="0" stroke="#F06E90" stroke-width="1.8" stroke-dasharray="4 3"/>
-                </g>
-            ` : '';
-
-            // 計算水柱底部圓角半徑（頂部水面保持完全平直）
-            const waterH = Math.max(0, bottomY - 1.5 - currentWaterY);
-            const rBot = Math.min(6, waterH / 2);
-            const waterPath = `M ${x + 1.5} ${currentWaterY} L ${x + w - 1.5} ${currentWaterY} L ${x + w - 1.5} ${bottomY - 1.5 - rBot} Q ${x + w - 1.5} ${bottomY - 1.5} ${x + w - 1.5 - rBot} ${bottomY - 1.5} L ${x + 1.5 + rBot} ${bottomY - 1.5} Q ${x + 1.5} ${bottomY - 1.5} ${x + 1.5} ${bottomY - 1.5 - rBot} Z`;
+            let pointerSvg = '';
+            if (showPointer && currentVol > 0) {
+                pointerSvg = `
+                    <line x1="${x + 4}" y1="${waterY}" x2="${x + width + 14}" y2="${waterY}" stroke="#F06E90" stroke-width="2.2" stroke-dasharray="5,4"/>
+                    <polygon points="${x + width + 14},${waterY} ${x + width + 28},${waterY - 8} ${x + width + 28},${waterY + 8}" fill="#F06E90"/>
+                `;
+            }
 
             return `
                 <g>
-                    <!-- 底座 (y = bottomY .. bottomY + 12) -->
-                    <rect x="${x - 12}" y="${bottomY}" width="${w + 24}" height="12" rx="6" fill="#D7CCC8" stroke="#5D4E60" stroke-width="2"/>
+                    <!-- 量杯底座 -->
+                    <rect x="${x - 14}" y="${y + height - 4}" width="${width + 28}" height="14" rx="7" fill="#DFD5DC" stroke="#5D4E60" stroke-width="2.8"/>
                     <!-- 量杯玻璃背板 -->
-                    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="#F4FBFF" stroke="#5D4E60" stroke-width="2.4"/>
-                    <!-- 單位標示 mL -->
-                    <text x="${x + w - 9}" y="${y + 15}" text-anchor="end" font-size="11" font-weight="900" fill="#4BA3D3">mL</text>
-                    <!-- 液體水柱（頂部完全平直） -->
-                    ${waterVol > 0 ? `
-                        <path d="${waterPath}" fill="url(#waterGrad)"/>
-                    ` : ''}
-                    <!-- 重物 -->
-                    ${objSvg}
-                    <!-- 水位水平直線（無橢圓） -->
-                    ${waterVol > 0 ? `
-                        <line x1="${x + 1.5}" y1="${currentWaterY}" x2="${x + w - 1.5}" y2="${currentWaterY}" stroke="#0284C7" stroke-width="3"/>
-                    ` : ''}
+                    <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="12" fill="url(#glassGrad)" stroke="#5D4E60" stroke-width="3"/>
+                    <!-- 單位標示 -->
+                    <text x="${x + width - 14}" y="${y + 18}" text-anchor="end" font-size="13" font-weight="900" fill="#4BA3D3">mL</text>
+                    <!-- 水柱與水平線 -->
+                    ${waterSvg}
+                    <!-- 玻璃高光條 -->
+                    <rect x="${x + width - 16}" y="${y + 14}" width="6" height="${height - 28}" rx="3" fill="#FFFFFF" opacity="0.55"/>
                     <!-- 刻度線 -->
                     ${ticksSvg}
-                    <!-- 量杯外框重描確保邊緣清晰 -->
-                    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="none" stroke="#5D4E60" stroke-width="2.4"/>
-                    <!-- 玻璃高光 -->
-                    <rect x="${x + w - 11}" y="${y + 10}" width="4.5" height="${h - 22}" rx="2.2" fill="#FFFFFF" opacity="0.55"/>
-                    <!-- 紅色水位指標 -->
+                    <!-- 紅色水平指標箭頭 -->
                     ${pointerSvg}
-                    <!-- 底部標籤 -->
+                    <!-- 底部說明膠囊 -->
                     ${labelText ? `
-                        <rect x="${x - 12}" y="${bottomY + 20}" width="${w + 24}" height="24" rx="12" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2"/>
-                        <text x="${x + w / 2}" y="${bottomY + 36}" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">${labelText}</text>
+                        <g transform="translate(${x + width / 2}, ${y + height + 32})">
+                            <rect x="-78" y="-15" width="156" height="30" rx="15" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2.5"/>
+                            <text x="0" y="5" text-anchor="middle" font-size="13" font-weight="900" fill="#5D4E60">${labelText}</text>
+                        </g>
                     ` : ''}
                 </g>
             `;
         }
 
-        // 繪製選項一：左右對照量杯
-        function drawMode1Svg(q, t) {
-            const currentV2 = q.v1 + (q.v2 - q.v1) * t;
-            const cyl1 = drawMeasuringCylinder({
-                x: 135, y: 38, w: 105, h: 295,
-                capacity: q.capacity, minorStep: q.minorStep, medStep: q.medStep, majorStep: q.majorStep,
-                waterVol: q.v1,
-                labelText: '① 放入重物前'
-            });
-            const cyl2 = drawMeasuringCylinder({
-                x: 410, y: 38, w: 105, h: 295,
-                capacity: q.capacity, minorStep: q.minorStep, medStep: q.medStep, majorStep: q.majorStep,
-                waterVol: currentV2,
-                obj: q.obj,
-                objDropT: t,
-                labelText: '② 放入重物後'
-            });
+        /* 輔助函式：繪製立體透明長方體方盒 */
+        function renderIsoBoxSvg({ x, y, w, h, dX, dY, maxH, waterH, labelL, labelW, labelH, waterLabel, isUnknownWater }) {
+            const ratio = maxH > 0 ? Math.max(0, Math.min(0.92, waterH / maxH)) : 0;
+            const fillH = ratio * h;
+            const wy = y + h - fillH;
 
-            return `
-                <defs>
-                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.82"/>
-                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.9"/>
-                    </linearGradient>
-                </defs>
-                <!-- 實驗桌面 -->
-                <line x1="40" y1="345" x2="640" y2="345" stroke="#EADCE4" stroke-width="4" stroke-linecap="round"/>
-                ${cyl1}
-                <!-- 中間可愛箭頭 -->
-                <g transform="translate(322, 185)">
-                    <rect x="-44" y="-18" width="88" height="36" rx="18" fill="#FFE082" stroke="#F5C242" stroke-width="2"/>
-                    <text x="0" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">放入重物 ➔</text>
-                </g>
-                ${cyl2}
-            `;
-        }
-
-        // 輔助函式：繪製墊高木架上的排水筒與精準對準下方容器的溢水口水流
-        function drawOverflowCan({
-            standX, standY, standW, standH,
-            canX, canY, canW, canH,
-            spoutTipX, spoutTipY,
-            streamCtrlX, streamCtrlY, streamEndX, streamEndY,
-            obj, t
-        }) {
-            const spoutAttachY = spoutTipY - 12;
-            const waterLevelY = spoutAttachY + 2;
-            const canBottomY = canY + canH;
-
-            const startObjY = canY - 24;
-            const endObjY = canBottomY - 22;
-            const curObjY = startObjY + (endObjY - startObjY) * t;
-
-            // 動畫過程中顯示水流從溢水口流入下方容器
-            const showStream = t > 0.18;
-            const streamOpacity = t < 0.96 ? 0.95 : 0.55;
-
-            return `
-                <g>
-                    <!-- 墊高實驗木架（雙腳支撐＋木紋質感） -->
-                    <rect x="${standX + 12}" y="${standY + 12}" width="18" height="${standH - 12}" rx="4" fill="#E6B88A" stroke="#5D4E60" stroke-width="2.2"/>
-                    <rect x="${standX + standW - 30}" y="${standY + 12}" width="18" height="${standH - 12}" rx="4" fill="#E6B88A" stroke="#5D4E60" stroke-width="2.2"/>
-                    <rect x="${standX + 26}" y="${standY + 34}" width="${standW - 52}" height="12" rx="4" fill="#EDD0B0" stroke="#5D4E60" stroke-width="2"/>
-                    <rect x="${standX}" y="${standY}" width="${standW}" height="16" rx="7" fill="#FFE0B2" stroke="#5D4E60" stroke-width="2.2"/>
-                    <text x="${standX + standW / 2}" y="${standY + 72}" text-anchor="middle" font-size="11.5" font-weight="900" fill="#8D6E63">實驗木架</text>
-
-                    <!-- 排水筒筒身 -->
-                    <rect x="${canX}" y="${canY}" width="${canW}" height="${canH}" rx="10" fill="#F4FBFF" stroke="#5D4E60" stroke-width="2.4"/>
-
-                    <!-- 筒內水面（維持在溢水口高度） -->
-                    <rect x="${canX + 2}" y="${waterLevelY}" width="${canW - 4}" height="${canBottomY - 2 - waterLevelY}" rx="6" fill="url(#waterGrad)"/>
-                    <line x1="${canX + 2}" y1="${waterLevelY}" x2="${canX + canW - 2}" y2="${waterLevelY}" stroke="#0284C7" stroke-width="2.4"/>
-
-                    <!-- 重物沉入排水筒 -->
-                    ${renderHeavyObjectSvg(obj, canX + canW / 2, curObjY, 0.92)}
-
-                    <!-- 排水筒與溢水口文字標示 -->
-                    <text x="${canX + 10}" y="${waterLevelY - 8}" font-size="10.5" font-weight="900" fill="#0284C7">溢水口水位線</text>
-                    <rect x="${canX + canW / 2 - 28}" y="${canY + 10}" width="56" height="20" rx="10" fill="#FFFDF7" stroke="#EADCE4" stroke-width="1.6"/>
-                    <text x="${canX + canW / 2}" y="${canY + 24}" text-anchor="middle" font-size="11" font-weight="900" fill="#5D4E60">排水筒</text>
-
-                    <!-- 斜向溢水口（延伸至 spoutTipX, spoutTipY） -->
-                    <polygon points="${canX + canW - 2},${spoutAttachY - 4} ${spoutTipX},${spoutTipY - 4} ${spoutTipX - 2},${spoutTipY + 5} ${canX + canW - 2},${spoutAttachY + 8}"
-                             fill="#E1F5FE" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-
-                    <!-- 平滑弧形溢出水流（直接落入下方容器中央） -->
-                    ${showStream ? `
-                        <path d="M ${spoutTipX} ${spoutTipY + 1} Q ${streamCtrlX} ${streamCtrlY}, ${streamEndX} ${streamEndY}"
-                              fill="none" stroke="#4BA3D3" stroke-width="5.5" stroke-linecap="round" stroke-dasharray="9 6" opacity="${streamOpacity}"/>
-                    ` : ''}
-                </g>
-            `;
-        }
-
-        // 繪製選項二（程度一）：排水筒 + 量杯置於溢水口正下方
-        function drawMode2_1Svg(q, t) {
-            const displacedVol = q.answer * Math.max(0, (t - 0.2) / 0.8);
-            const cylX = 295, cylY = 172, cylW = 100, cylH = 166;
-            const scaleTopY = cylY + Math.min(26, Math.round(cylH * 0.13));
-            const scaleBottomY = cylY + cylH - Math.min(12, Math.round(cylH * 0.06));
-            const currentWaterY = scaleBottomY - (displacedVol / q.capacity) * (scaleBottomY - scaleTopY);
-
-            const overflowCan = drawOverflowCan({
-                standX: 115, standY: 260, standW: 140, standH: 90,
-                canX: 125, canY: 80, canW: 120, canH: 180,
-                spoutTipX: 298, spoutTipY: 144,
-                streamCtrlX: 336, streamCtrlY: 152,
-                streamEndX: 345, streamEndY: Math.max(198, currentWaterY),
-                obj: q.obj,
-                t
-            });
-
-            const receivingCyl = drawMeasuringCylinder({
-                x: cylX, y: cylY, w: cylW, h: cylH,
-                capacity: q.capacity, minorStep: q.minorStep, medStep: q.medStep, majorStep: q.majorStep,
-                waterVol: displacedVol,
-                labelText: '盛載溢出的水'
-            });
-
-            return `
-                <defs>
-                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.82"/>
-                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.9"/>
-                    </linearGradient>
-                </defs>
-                <line x1="40" y1="350" x2="640" y2="350" stroke="#EADCE4" stroke-width="4" stroke-linecap="round"/>
-                ${overflowCan}
-                ${receivingCyl}
-            `;
-        }
-
-        // 輔助函式：繪製 3D 透明長方體容器 (用於選項二程度二 & 選項三)
-        function draw3DRectangularBox({
-            originX, originY, boxW, boxH, depthX, depthY,
-            waterRatio1, waterRatio2, t,
-            lengthVal, widthVal, heightVal,
-            waterLabel1 = '', waterLabel2 = '',
-            waterBadgeStyle = 'left', // 'left' (選項三) | 'inline-right' (選項二程度二)
-            showRiseHighlight = false,
-            riseQuestionMark = false,
-            obj = null
-        }) {
-            // 前面矩形四頂點：(originX, originY) 左上 -> (originX + boxW, originY + boxH) 右下
-            const fx1 = originX, fy1 = originY;
-            const fx2 = originX + boxW, fy2 = originY + boxH;
-
-            // 後面矩形四頂點（向右上偏移 depthX, -depthY）
-            const bx1 = fx1 + depthX, by1 = fy1 - depthY;
-            const bx2 = fx2 + depthX, by2 = fy2 - depthY;
-
-            const curRatio = waterRatio1 + (waterRatio2 - waterRatio1) * t;
-            const waterH = boxH * curRatio;
-            const wy = fy2 - waterH;
-
-            // 原來水位線 Y（用於選項三對照）
-            const w1Y = fy2 - boxH * waterRatio1;
-
-            // 升高的水層高亮色帶（用於選項三）
-            let riseBandSvg = '';
-            if (showRiseHighlight && t > 0.1 && waterRatio2 > waterRatio1) {
-                const bandTopY = wy;
-                const bandH = w1Y - wy;
-                if (bandH > 1) {
-                    riseBandSvg = `
-                        <rect x="${fx1}" y="${bandTopY}" width="${boxW}" height="${bandH}" fill="#FF9EB5" opacity="0.35"/>
-                        <polygon points="${fx2},${bandTopY} ${bx2},${bandTopY - depthY} ${bx2},${w1Y - depthY} ${fx2},${w1Y}" fill="#FF9EB5" opacity="0.45"/>
-                    `;
-                }
+            let waterSvg = '';
+            if (waterH > 0) {
+                waterSvg = `
+                    <!-- 水體正面 -->
+                    <rect x="${x}" y="${wy}" width="${w}" height="${fillH}" fill="url(#waterGrad)" opacity="0.88"/>
+                    <!-- 水體右側側面 -->
+                    <polygon points="${x + w},${wy} ${x + w + dX},${wy - dY} ${x + w + dX},${y + h - dY} ${x + w},${y + h}" fill="#64B5F6" opacity="0.72"/>
+                    <!-- 水體頂面 -->
+                    <polygon points="${x},${wy} ${x + dX},${wy - dY} ${x + w + dX},${wy - dY} ${x + w},${wy}" fill="#B3E5FC" opacity="0.85" stroke="#1E88E5" stroke-width="1.8"/>
+                `;
             }
 
-            // 重物放在容器底部中央
-            let objSvg = '';
-            if (obj) {
-                const startObjY = by1 - 24;
-                const endObjY = fy2 - 22;
-                const curObjY = startObjY + (endObjY - startObjY) * t;
-                objSvg = renderHeavyObjectSvg(obj, fx1 + boxW * 0.5 + depthX * 0.35, curObjY, 1.0);
-            }
-
-            // 水高 / 目前水位標籤（支援左側外掛或前面右側內嵌，避免遮擋左側水流）
-            let waterLabel2Svg = '';
-            if (waterLabel2 && waterH > 2) {
-                if (waterBadgeStyle === 'inline-right') {
-                    waterLabel2Svg = `
-                        <line x1="${fx1}" y1="${wy}" x2="${fx2}" y2="${wy}" stroke="#F06E90" stroke-width="2.4" stroke-dasharray="5 3"/>
-                        <g transform="translate(365, ${wy})">
-                            <rect x="-44" y="-12" width="88" height="24" rx="12" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.8"/>
-                            <text x="0" y="4" text-anchor="middle" font-size="11.5" font-weight="900" fill="#FFFFFF">${waterLabel2}</text>
-                        </g>
-                    `;
-                } else {
-                    waterLabel2Svg = `
-                        <g transform="translate(${fx1 - 10}, ${wy})">
-                            <rect x="-118" y="-13" width="112" height="26" rx="13" fill="#FF9EB5" stroke="#5D4E60" stroke-width="1.8"/>
-                            <text x="-62" y="4" text-anchor="middle" font-size="11.5" font-weight="900" fill="#FFFFFF">${waterLabel2}</text>
-                            <line x1="-6" y1="0" x2="10" y2="0" stroke="#F06E90" stroke-width="2"/>
-                        </g>
-                    `;
-                }
+            let waterBadgeSvg = '';
+            if (waterLabel) {
+                const badgeFill = isUnknownWater ? '#FFE082' : '#FF9EB5';
+                const badgeStroke = isUnknownWater ? '#F5C242' : '#5D4E60';
+                const badgeTextCol = isUnknownWater ? '#5D4E60' : '#FFFFFF';
+                waterBadgeSvg = `
+                    <line x1="${x - 10}" y1="${wy}" x2="${x}" y2="${wy}" stroke="#F06E90" stroke-width="2.2"/>
+                    <g transform="translate(${x - 66}, ${wy})">
+                        <rect x="-56" y="-14" width="112" height="28" rx="14" fill="${badgeFill}" stroke="${badgeStroke}" stroke-width="2"/>
+                        <text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="900" fill="${badgeTextCol}">${waterLabel}</text>
+                    </g>
+                `;
             }
 
             return `
                 <g>
-                    <!-- 1. 容器背面與底面輪廓（虛線表示被遮擋邊） -->
-                    <polygon points="${bx1},${by1} ${bx2},${by1} ${bx2},${by2} ${bx1},${by2}" fill="#F4FBFF" stroke="#90A4AE" stroke-width="1.6" stroke-dasharray="5 4"/>
-                    <line x1="${fx1}" y1="${fy2}" x2="${bx1}" y2="${by2}" stroke="#90A4AE" stroke-width="1.6" stroke-dasharray="5 4"/>
+                    <!-- 背面虛線輪廓 -->
+                    <line x1="${x + dX}" y1="${y - dY}" x2="${x + dX}" y2="${y + h - dY}" stroke="#8B7A8E" stroke-width="1.8" stroke-dasharray="5,4"/>
+                    <line x1="${x + dX}" y1="${y + h - dY}" x2="${x + w + dX}" y2="${y + h - dY}" stroke="#8B7A8E" stroke-width="1.8" stroke-dasharray="5,4"/>
+                    <line x1="${x}" y1="${y + h}" x2="${x + dX}" y2="${y + h - dY}" stroke="#8B7A8E" stroke-width="1.8" stroke-dasharray="5,4"/>
 
-                    <!-- 2. 放入重物 -->
-                    ${objSvg}
+                    <!-- 水體 -->
+                    ${waterSvg}
 
-                    <!-- 3. 水體（前面 + 右側面 + 頂面） -->
-                    ${waterH > 1 ? `
-                        <rect x="${fx1}" y="${wy}" width="${boxW}" height="${waterH}" fill="url(#waterGrad)"/>
-                        <polygon points="${fx2},${wy} ${bx2},${wy - depthY} ${bx2},${by2} ${fx2},${fy2}" fill="#4BA3D3" opacity="0.68"/>
-                        <polygon points="${fx1},${wy} ${fx1 + depthX},${wy - depthY} ${bx2},${wy - depthY} ${fx2},${wy}" fill="#B3E5FC" opacity="0.88" stroke="#1D78B5" stroke-width="1.6"/>
-                    ` : ''}
+                    <!-- 前面與側面玻璃實線邊框 -->
+                    <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#5D4E60" stroke-width="2.6" stroke-linejoin="round"/>
+                    <polygon points="${x},${y} ${x + dX},${y - dY} ${x + w + dX},${y - dY} ${x + w},${y}" fill="rgba(225,245,254,0.35)" stroke="#5D4E60" stroke-width="2.6" stroke-linejoin="round"/>
+                    <polygon points="${x + w},${y} ${x + w + dX},${y - dY} ${x + w + dX},${y + h - dY} ${x + w},${y + h}" fill="rgba(225,245,254,0.22)" stroke="#5D4E60" stroke-width="2.6" stroke-linejoin="round"/>
 
-                    <!-- 4. 升高水層粉色強調帶 -->
-                    ${riseBandSvg}
+                    <!-- 水高標籤（錯開於左側） -->
+                    ${waterBadgeSvg}
 
-                    <!-- 5. 原來水位虛線（選項三對照線） -->
-                    ${waterLabel1 ? `
-                        <line x1="${fx1}" y1="${w1Y}" x2="${fx2}" y2="${w1Y}" stroke="#5D4E60" stroke-width="1.8" stroke-dasharray="6 4"/>
-                        <g transform="translate(${fx1 - 10}, ${w1Y})">
-                            <rect x="-112" y="-12" width="106" height="24" rx="12" fill="#FFFDF7" stroke="#5D4E60" stroke-width="1.8"/>
-                            <text x="-59" y="4" text-anchor="middle" font-size="11.5" font-weight="900" fill="#5D4E60">${waterLabel1}</text>
-                            <line x1="-6" y1="0" x2="10" y2="0" stroke="#5D4E60" stroke-width="1.8"/>
-                        </g>
-                    ` : ''}
-
-                    <!-- 6. 目前水位 / 水高標示標籤 -->
-                    ${waterLabel2Svg}
-
-                    <!-- 7. 選項三（程度二）升高水位問號括號 -->
-                    ${riseQuestionMark && t > 0.3 && (w1Y - wy) > 4 ? `
-                        <g transform="translate(${fx1 - 12}, ${(wy + w1Y) / 2})">
-                            <line x1="0" y1="${-(w1Y - wy) / 2}" x2="0" y2="${(w1Y - wy) / 2}" stroke="#F06E90" stroke-width="2.6"/>
-                            <line x1="-5" y1="${-(w1Y - wy) / 2}" x2="5" y2="${-(w1Y - wy) / 2}" stroke="#F06E90" stroke-width="2.2"/>
-                            <line x1="-5" y1="${(w1Y - wy) / 2}" x2="5" y2="${(w1Y - wy) / 2}" stroke="#F06E90" stroke-width="2.2"/>
-                            <rect x="-106" y="-14" width="98" height="28" rx="14" fill="#FFE082" stroke="#F06E90" stroke-width="2"/>
-                            <text x="-57" y="5" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">升高了 ? cm</text>
-                        </g>
-                    ` : ''}
-
-                    <!-- 8. 透明玻璃方盒前景實線外框 -->
-                    <polygon points="${fx1},${fy1} ${bx1},${by1} ${bx2},${by1} ${fx2},${fy1}" fill="none" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-                    <rect x="${fx1}" y="${fy1}" width="${boxW}" height="${boxH}" fill="none" stroke="#5D4E60" stroke-width="2.4" stroke-linejoin="round"/>
-                    <polygon points="${fx2},${fy1} ${bx2},${by1} ${bx2},${by2} ${fx2},${fy2}" fill="none" stroke="#5D4E60" stroke-width="2.2" stroke-linejoin="round"/>
-
-                    <!-- 9. 工程尺寸標註：長 (底部前面正下方 y=372) -->
-                    <g transform="translate(0, ${fy2 + 12})">
-                        <line x1="${fx1}" y1="0" x2="${fx2}" y2="0" stroke="#5D4E60" stroke-width="1.8"/>
-                        <line x1="${fx1}" y1="-4" x2="${fx1}" y2="4" stroke="#5D4E60" stroke-width="1.8"/>
-                        <line x1="${fx2}" y1="-4" x2="${fx2}" y2="4" stroke="#5D4E60" stroke-width="1.8"/>
-                        <rect x="${(fx1 + fx2) / 2 - 44}" y="4" width="88" height="22" rx="11" fill="#FFFDF7" stroke="#89CFF0" stroke-width="2"/>
-                        <text x="${(fx1 + fx2) / 2}" y="19" text-anchor="middle" font-size="11.5" font-weight="900" fill="#5D4E60">長：${lengthVal} cm</text>
+                    <!-- 長度標註（底部正下方） -->
+                    <line x1="${x}" y1="${y + h + 16}" x2="${x + w}" y2="${y + h + 16}" stroke="#5D4E60" stroke-width="2"/>
+                    <line x1="${x}" y1="${y + h + 11}" x2="${x}" y2="${y + h + 21}" stroke="#5D4E60" stroke-width="2"/>
+                    <line x1="${x + w}" y1="${y + h + 11}" x2="${x + w}" y2="${y + h + 21}" stroke="#5D4E60" stroke-width="2"/>
+                    <g transform="translate(${x + w / 2}, ${y + h + 16})">
+                        <rect x="-46" y="-13" width="92" height="26" rx="13" fill="#FFFFFF" stroke="#89CFF0" stroke-width="2.2"/>
+                        <text x="0" y="4.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5D4E60">長：${labelL} cm</text>
                     </g>
 
-                    <!-- 10. 工程尺寸標註：闊 (右下深度斜邊旁) -->
-                    <g>
-                        <line x1="${fx2 + 8}" y1="${fy2 + 5}" x2="${bx2 + 8}" y2="${by2 + 5}" stroke="#5D4E60" stroke-width="1.8"/>
-                        <rect x="${(fx2 + bx2) / 2 + 14}" y="${(fy2 + by2) / 2 - 3}" width="84" height="22" rx="11" fill="#FFFDF7" stroke="#88D8B0" stroke-width="2"/>
-                        <text x="${(fx2 + bx2) / 2 + 56}" y="${(fy2 + by2) / 2 + 12}" text-anchor="middle" font-size="11.5" font-weight="900" fill="#5D4E60">闊：${widthVal} cm</text>
+                    <!-- 闊度標註（右下方斜邊） -->
+                    <line x1="${x + w + 10}" y1="${y + h + 8}" x2="${x + w + dX + 10}" y2="${y + h - dY + 8}" stroke="#5D4E60" stroke-width="2"/>
+                    <g transform="translate(${x + w + dX / 2 + 56}, ${y + h - dY / 2 + 12})">
+                        <rect x="-44" y="-13" width="88" height="26" rx="13" fill="#FFFFFF" stroke="#88D8B0" stroke-width="2.2"/>
+                        <text x="0" y="4.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5D4E60">闊：${labelW} cm</text>
                     </g>
 
-                    <!-- 11. 工程尺寸標註：容器高 / 盒高 (最右側垂直標尺 x=482) -->
-                    <g>
-                        <line x1="${bx2 + 4}" y1="${by1}" x2="${bx2 + 22}" y2="${by1}" stroke="#8B7A8E" stroke-width="1.2" stroke-dasharray="3 3"/>
-                        <line x1="${bx2 + 4}" y1="${by2}" x2="${bx2 + 22}" y2="${by2}" stroke="#8B7A8E" stroke-width="1.2" stroke-dasharray="3 3"/>
-                        <line x1="${bx2 + 22}" y1="${by1}" x2="${bx2 + 22}" y2="${by2}" stroke="#5D4E60" stroke-width="1.8"/>
-                        <line x1="${bx2 + 17}" y1="${by1}" x2="${bx2 + 27}" y2="${by1}" stroke="#5D4E60" stroke-width="1.8"/>
-                        <line x1="${bx2 + 17}" y1="${by2}" x2="${bx2 + 27}" y2="${by2}" stroke="#5D4E60" stroke-width="1.8"/>
-                        <rect x="${bx2 + 30}" y="${(by1 + by2) / 2 - 12}" width="92" height="24" rx="12" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2"/>
-                        <text x="${bx2 + 76}" y="${(by1 + by2) / 2 + 4}" text-anchor="middle" font-size="11.5" font-weight="900" fill="#5D4E60">高：${heightVal} cm</text>
+                    <!-- 高度標註（右側垂直線） -->
+                    <line x1="${x + w + dX + 16}" y1="${y - dY}" x2="${x + w + dX + 16}" y2="${y + h - dY}" stroke="#5D4E60" stroke-width="2"/>
+                    <line x1="${x + w + dX + 11}" y1="${y - dY}" x2="${x + w + dX + 21}" y2="${y - dY}" stroke="#5D4E60" stroke-width="2"/>
+                    <line x1="${x + w + dX + 11}" y1="${y + h - dY}" x2="${x + w + dX + 21}" y2="${y + h - dY}" stroke="#5D4E60" stroke-width="2"/>
+                    <g transform="translate(${x + w + dX + 68}, ${y + h / 2 - dY})">
+                        <rect x="-44" y="-13" width="88" height="26" rx="13" fill="#FFFFFF" stroke="#EADCE4" stroke-width="2.2"/>
+                        <text x="0" y="4.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5D4E60">高：${labelH} cm</text>
                     </g>
                 </g>
             `;
         }
 
-        // 繪製選項二（程度二）：排水筒 + 透明方盒置於溢水口正下方
-        function drawMode2_2Svg(q, t) {
-            const targetRatio = q.waterHeight / q.boxHeight;
-            const boxT = Math.max(0, (t - 0.2) / 0.8);
-            const boxOriginX = 258, boxOriginY = 195, boxW = 160, boxH = 150;
-            const currentWaterY = (boxOriginY + boxH) - boxH * (targetRatio * boxT);
+        /* 主畫布渲染器 */
+        function renderExperimentCanvas() {
+            const svg = document.getElementById('lab-svg');
+            const q = state.currentQuestion;
+            if (!svg || !q) return;
 
-            const overflowCan = drawOverflowCan({
-                standX: 65, standY: 260, standW: 140, standH: 90,
-                canX: 75, canY: 75, canW: 120, canH: 185,
-                spoutTipX: 252, spoutTipY: 138,
-                streamCtrlX: 296, streamCtrlY: 148,
-                streamEndX: 308, streamEndY: Math.max(205, currentWaterY),
-                obj: q.obj,
-                t
-            });
-
-            const receivingBox = draw3DRectangularBox({
-                originX: boxOriginX, originY: boxOriginY, boxW: boxW, boxH: boxH, depthX: 42, depthY: 32,
-                waterRatio1: 0, waterRatio2: targetRatio, t: boxT,
-                lengthVal: q.length, widthVal: q.width, heightVal: q.boxHeight,
-                waterLabel2: `水高：${q.waterHeight} cm`,
-                waterBadgeStyle: 'inline-right'
-            });
-
-            return `
-                <defs>
-                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.82"/>
-                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.9"/>
-                    </linearGradient>
-                </defs>
-                <line x1="30" y1="350" x2="650" y2="350" stroke="#EADCE4" stroke-width="4" stroke-linecap="round"/>
-                ${overflowCan}
-                ${receivingBox}
-            `;
-        }
-
-        // 繪製選項三（程度一）：長方體盛水容器（按升高的水位找物件體積）
-        function drawMode3_1Svg(q, t) {
-            const r1 = q.h1 / q.tankHeight;
-            const r2 = q.h2 / q.tankHeight;
-            const tankSvg = draw3DRectangularBox({
-                originX: 230, originY: 95, boxW: 205, boxH: 230, depthX: 54, depthY: 38,
-                waterRatio1: r1, waterRatio2: r2, t,
-                lengthVal: q.length, widthVal: q.width, heightVal: q.tankHeight,
-                waterLabel1: `原來：${q.h1} cm`,
-                waterLabel2: `放入後：${q.h2} cm`,
-                waterBadgeStyle: 'left',
-                showRiseHighlight: true,
-                obj: q.obj
-            });
-
-            return `
-                <defs>
-                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.82"/>
-                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.9"/>
-                    </linearGradient>
-                </defs>
-                <line x1="60" y1="345" x2="620" y2="345" stroke="#EADCE4" stroke-width="4" stroke-linecap="round"/>
-                ${tankSvg}
-            `;
-        }
-
-        // 繪製選項三（程度二）：長方體盛水容器（已知重物體積，求升高的水位）
-        function drawMode3_2Svg(q, t) {
-            const r1 = q.h1 / q.tankHeight;
-            const r2 = q.h2 / q.tankHeight;
-            const tankSvg = draw3DRectangularBox({
-                originX: 230, originY: 100, boxW: 205, boxH: 225, depthX: 54, depthY: 38,
-                waterRatio1: r1, waterRatio2: r2, t,
-                lengthVal: q.length, widthVal: q.width, heightVal: q.tankHeight,
-                waterLabel1: `原來：${q.h1} cm`,
-                waterBadgeStyle: 'left',
-                showRiseHighlight: true,
-                riseQuestionMark: true,
-                obj: q.obj
-            });
-
-            // 頂部顯示已知重物體積標籤
-            const objTagSvg = `
-                <g transform="translate(345, 28)">
-                    <rect x="-112" y="-14" width="224" height="28" rx="14" fill="#FFE082" stroke="#5D4E60" stroke-width="2"/>
-                    <text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5D4E60">
-                        ${q.obj.emoji} ${q.obj.name}體積 = ${q.volume} cm³
-                    </text>
-                </g>
-            `;
-
-            return `
-                <defs>
-                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.82"/>
-                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.9"/>
-                    </linearGradient>
-                </defs>
-                <line x1="60" y1="345" x2="620" y2="345" stroke="#EADCE4" stroke-width="4" stroke-linecap="round"/>
-                ${objTagSvg}
-                ${tankSvg}
-            `;
-        }
-
-        /* ============================================================================
-           8. 動畫控制與放入前後切換
-           ============================================================================ */
-        function playDropAnimation() {
-            if (state.animFrameId) {
-                cancelAnimationFrame(state.animFrameId);
-            }
-            state.viewPhase = 'after';
-            state.animProgress = 0;
-            updateViewStateUI();
-            playTone('splash');
-
-            const duration = 900; // 0.9 秒平滑落水動畫
-            const startTime = performance.now();
-
-            function step(now) {
-                const elapsed = now - startTime;
-                const raw = Math.min(1, elapsed / duration);
-                // 柔和緩動曲線 easeOutCubic
-                state.animProgress = 1 - Math.pow(1 - raw, 3);
-                renderExperimentCanvas();
-
-                if (raw < 1) {
-                    state.animFrameId = requestAnimationFrame(step);
-                } else {
-                    state.animFrameId = null;
-                }
-            }
-            state.animFrameId = requestAnimationFrame(step);
-        }
-
-        function toggleBeforeAfter() {
-            if (state.animFrameId) {
-                cancelAnimationFrame(state.animFrameId);
-                state.animFrameId = null;
-            }
-            if (state.viewPhase === 'after') {
-                state.viewPhase = 'before';
-                state.animProgress = 0;
-            } else {
-                state.viewPhase = 'after';
-                state.animProgress = 1;
-            }
-            updateViewStateUI();
-            renderExperimentCanvas();
-        }
-
-        function updateViewStateUI() {
-            const toggleText = document.getElementById('toggle-state-text');
+            const isAfter = state.showAfterState;
             const statusTag = document.getElementById('canvas-status-tag');
-            if (state.viewPhase === 'after') {
-                toggleText.textContent = '切換：放入前狀態';
-                statusTag.textContent = '✨ 已放入重物（觀察水位變化）';
-                statusTag.className = 'text-xs font-black px-3 py-1 rounded-full bg-mint/40 text-plum border border-mintDark/40';
-            } else {
-                toggleText.textContent = '切換：放入後狀態';
-                statusTag.textContent = '💧 放入重物前（初始狀態）';
-                statusTag.className = 'text-xs font-black px-3 py-1 rounded-full bg-sky/35 text-plum border border-skyDark/40';
+            const toggleText = document.getElementById('toggle-state-text');
+
+            if (statusTag) {
+                if (isAfter) {
+                    statusTag.textContent = '✨ 已放入重物（觀察水位變化）';
+                    statusTag.className = 'text-xs font-black px-3 py-1 rounded-full bg-mint/40 text-plum border border-mintDark/40';
+                } else {
+                    statusTag.textContent = '💧 放入重物前（初始狀態）';
+                    statusTag.className = 'text-xs font-black px-3 py-1 rounded-full bg-butter/60 text-plum border border-butterDark';
+                }
             }
+            if (toggleText) {
+                toggleText.textContent = isAfter ? '切換：放入前狀態' : '切換：放入後狀態';
+            }
+
+            const defsSvg = `
+                <defs>
+                    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#89CFF0" stop-opacity="0.88"/>
+                        <stop offset="100%" stop-color="#4BA3D3" stop-opacity="0.95"/>
+                    </linearGradient>
+                    <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#F2FAFF" stop-opacity="0.85"/>
+                        <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+                        <stop offset="100%" stop-color="#E3F2FD" stop-opacity="0.8"/>
+                    </linearGradient>
+                </defs>
+                <!-- 實驗桌面底線 -->
+                <line x1="28" y1="342" x2="652" y2="342" stroke="#EADCE4" stroke-width="5" stroke-linecap="round"/>
+            `;
+
+            let sceneSvg = '';
+
+            // -------------------- 場景 1：量杯排水法 --------------------
+            if (q.mode === 'mode1') {
+                const curVol = isAfter ? q.vAfter : q.vBefore;
+                const cylX = 270;
+                const cylY = 34;
+                const cylW = 140;
+                const cylH = 296;
+
+                sceneSvg += renderCylinderSvg({
+                    x: cylX,
+                    y: cylY,
+                    width: cylW,
+                    height: cylH,
+                    capacity: q.capacity,
+                    step: q.step,
+                    currentVol: curVol,
+                    showPointer: true,
+                    labelText: isAfter ? `放入${q.obj.name}後` : `放入${q.obj.name}前`
+                });
+
+                // 重物位置：放入後沉於量杯底部；放入前懸浮於量杯上方
+                const objY = isAfter ? (cylY + cylH - 34) : 18;
+                const objScale = isAfter ? 0.92 : 0.82;
+                sceneSvg += renderHeavyObjectSvg(q.obj, cylX + cylW / 2 + 12, objY, objScale);
+
+                // 右側圖例說明卡
+                sceneSvg += `
+                    <g transform="translate(475, 110)">
+                        <rect x="0" y="0" width="165" height="92" rx="16" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2.2"/>
+                        <text x="16" y="28" font-size="13" font-weight="900" fill="#5D4E60">📏 刻度提示</text>
+                        <text x="16" y="52" font-size="12.5" font-weight="700" fill="#8B7A8E">最大容量：${q.capacity} mL</text>
+                        <text x="16" y="74" font-size="12.5" font-weight="700" fill="#4BA3D3">每小格 = ${q.step} mL</text>
+                    </g>
+                `;
+            }
+
+            // -------------------- 場景 2-1：排水筒 + 下方量杯 --------------------
+            else if (q.mode === 'mode2_1') {
+                // 左側：墊高的排水筒（木架 + 排水筒）
+                const standX = 95;
+                const standY = 292;
+                const tankX = 105;
+                const tankY = 42;
+                const tankW = 140;
+                const tankH = 250;
+                const spoutY = 96;
+
+                // 墊高木架
+                sceneSvg += `
+                    <rect x="${standX}" y="${standY}" width="${tankW + 20}" height="48" rx="12" fill="#FFE082" stroke="#5D4E60" stroke-width="2.8"/>
+                    <text x="${standX + (tankW + 20) / 2}" y="${standY + 29}" text-anchor="middle" font-size="14" font-weight="900" fill="#5D4E60">排水筒</text>
+                `;
+
+                // 排水筒本體與水（滿至溢水口）
+                sceneSvg += `
+                    <rect x="${tankX}" y="${tankY}" width="${tankW}" height="${tankH}" rx="12" fill="url(#glassGrad)" stroke="#5D4E60" stroke-width="3"/>
+                    <rect x="${tankX + 4}" y="${spoutY}" width="${tankW - 8}" height="${tankH - (spoutY - tankY) - 4}" rx="6" fill="url(#waterGrad)"/>
+                    <line x1="${tankX + 4}" y1="${spoutY}" x2="${tankX + tankW - 4}" y2="${spoutY}" stroke="#1E88E5" stroke-width="2.5"/>
+                    <text x="${tankX + 12}" y="${spoutY - 8}" font-size="12" font-weight="900" fill="#1E88E5">溢水口水位線</text>
+                `;
+
+                // 溢水口斜管（指向右側量杯上方）
+                const spoutEndX = tankX + tankW + 44;
+                const spoutEndY = spoutY + 14;
+                sceneSvg += `
+                    <polygon points="${tankX + tankW},${spoutY - 5} ${spoutEndX},${spoutEndY - 5} ${spoutEndX},${spoutEndY + 5} ${tankX + tankW},${spoutY + 6}"
+                             fill="#E1F5FE" stroke="#5D4E60" stroke-width="2.5" stroke-linejoin="round"/>
+                `;
+
+                // 重物位置
+                const objY = isAfter ? (tankY + tankH - 34) : 22;
+                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.9);
+
+                // 溢出的藍色水流曲線（直接落入下方加高清晰量杯中央）
+                const cupX = 335;
+                const cupY = 112;
+                const cupW = 132;
+                const cupH = 218;
+
+                if (isAfter) {
+                    sceneSvg += `
+                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${cupX + cupW / 2 - 8} ${spoutEndY + 4}, ${cupX + cupW / 2} ${cupY + 18}"
+                              fill="none" stroke="#89CFF0" stroke-width="6" stroke-dasharray="10,6" stroke-linecap="round"/>
+                    `;
+                }
+
+                // 置於排水筒溢水口正下方的盛水量杯（筆直水平線水位）
+                sceneSvg += renderCylinderSvg({
+                    x: cupX,
+                    y: cupY,
+                    width: cupW,
+                    height: cupH,
+                    capacity: q.capacity,
+                    step: q.step,
+                    currentVol: isAfter ? q.vAfter : 0,
+                    showPointer: isAfter,
+                    labelText: '觀察量杯刻度讀數'
+                });
+
+                // 右側刻度單位提示卡（幫助學生準確數小格）
+                sceneSvg += `
+                    <g transform="translate(508, 138)">
+                        <rect x="0" y="0" width="146" height="86" rx="16" fill="#FFFDF7" stroke="#EADCE4" stroke-width="2.2"/>
+                        <text x="14" y="26" font-size="12.5" font-weight="900" fill="#5D4E60">👀 讀數提示</text>
+                        <text x="14" y="48" font-size="12" font-weight="700" fill="#8B7A8E">最大容量：${q.capacity} mL</text>
+                        <text x="14" y="69" font-size="12.5" font-weight="900" fill="#4BA3D3">每小格 = ${q.step} mL</text>
+                    </g>
+                `;
+            }
+
+            // -------------------- 場景 2-2：排水筒 + 下方透明方盒 --------------------
+            else if (q.mode === 'mode2_2') {
+                const standX = 72;
+                const standY = 292;
+                const tankX = 82;
+                const tankY = 40;
+                const tankW = 135;
+                const tankH = 252;
+                const spoutY = 100;
+
+                // 墊高木架
+                sceneSvg += `
+                    <rect x="${standX}" y="${standY}" width="${tankW + 20}" height="48" rx="12" fill="#FFE082" stroke="#5D4E60" stroke-width="2.8"/>
+                    <text x="${standX + (tankW + 20) / 2}" y="${standY + 29}" text-anchor="middle" font-size="14" font-weight="900" fill="#5D4E60">排水筒</text>
+                `;
+
+                // 排水筒本體
+                sceneSvg += `
+                    <rect x="${tankX}" y="${tankY}" width="${tankW}" height="${tankH}" rx="12" fill="url(#glassGrad)" stroke="#5D4E60" stroke-width="3"/>
+                    <rect x="${tankX + 4}" y="${spoutY}" width="${tankW - 8}" height="${tankH - (spoutY - tankY) - 4}" rx="6" fill="url(#waterGrad)"/>
+                    <line x1="${tankX + 4}" y1="${spoutY}" x2="${tankX + tankW - 4}" y2="${spoutY}" stroke="#1E88E5" stroke-width="2.5"/>
+                    <text x="${tankX + 10}" y="${spoutY - 8}" font-size="11.5" font-weight="900" fill="#1E88E5">溢水口水位線</text>
+                `;
+
+                // 溢水口斜管
+                const spoutEndX = tankX + tankW + 44;
+                const spoutEndY = spoutY + 18;
+                sceneSvg += `
+                    <polygon points="${tankX + tankW},${spoutY - 5} ${spoutEndX},${spoutEndY - 5} ${spoutEndX},${spoutEndY + 5} ${tankX + tankW},${spoutY + 6}"
+                             fill="#E1F5FE" stroke="#5D4E60" stroke-width="2.5" stroke-linejoin="round"/>
+                `;
+
+                // 重物
+                const objY = isAfter ? (tankY + tankH - 34) : 20;
+                sceneSvg += renderHeavyObjectSvg(q.obj, tankX + tankW / 2, objY, 0.88);
+
+                // 置於排水筒溢水口正下方的透明方盒
+                const boxX = 355;
+                const boxY = 175;
+                const boxW = 148;
+                const boxH = 140;
+                const dX = 36;
+                const dY = 26;
+
+                if (isAfter) {
+                    sceneSvg += `
+                        <path d="M ${spoutEndX + 2} ${spoutEndY} Q ${boxX + boxW / 2 - 12} ${spoutEndY + 12}, ${boxX + boxW / 2} ${boxY - 6}"
+                              fill="none" stroke="#89CFF0" stroke-width="6" stroke-dasharray="10,6" stroke-linecap="round"/>
+                    `;
+                }
+
+                sceneSvg += renderIsoBoxSvg({
+                    x: boxX,
+                    y: boxY,
+                    w: boxW,
+                    h: boxH,
+                    dX,
+                    dY,
+                    maxH: q.boxH,
+                    waterH: isAfter ? q.waterH : 0,
+                    labelL: q.boxL,
+                    labelW: q.boxW,
+                    labelH: q.boxH,
+                    waterLabel: isAfter ? `水高：${q.waterH} cm` : null,
+                    isUnknownWater: false
+                });
+            }
+
+            // -------------------- 場景 3-1 與 3-2：長方體盛水容器 --------------------
+            else if (q.mode === 'mode3_1' || q.mode === 'mode3_2') {
+                const boxX = 215;
+                const boxY = 92;
+                const boxW = 200;
+                const boxH = 218;
+                const dX = 48;
+                const dY = 34;
+
+                const curWaterH = isAfter ? q.hAfter : q.hBefore;
+                const beforeRatio = Math.max(0, Math.min(0.92, q.hBefore / q.boxH));
+                const beforeY = boxY + boxH - beforeRatio * boxH;
+
+                const afterRatio = Math.max(0, Math.min(0.92, q.hAfter / q.boxH));
+                const afterY = boxY + boxH - afterRatio * boxH;
+
+                // 繪製透明方盒與當前水體
+                sceneSvg += renderIsoBoxSvg({
+                    x: boxX,
+                    y: boxY,
+                    w: boxW,
+                    h: boxH,
+                    dX,
+                    dY,
+                    maxH: q.boxH,
+                    waterH: curWaterH,
+                    labelL: q.boxL,
+                    labelW: q.boxW,
+                    labelH: q.boxH,
+                    waterLabel: null,
+                    isUnknownWater: false
+                });
+
+                // 放入後顯示水位變化比較（原來水深虛線 + 升高水位標註）
+                if (isAfter) {
+                    // 原來水深虛線
+                    sceneSvg += `
+                        <line x1="${boxX}" y1="${beforeY}" x2="${boxX + boxW}" y2="${beforeY}" stroke="#5D4E60" stroke-width="2" stroke-dasharray="6,4"/>
+                        <!-- 左側原來水深標籤 -->
+                        <g transform="translate(${boxX - 68}, ${beforeY + 14})">
+                            <rect x="-60" y="-13" width="120" height="26" rx="13" fill="#FFFDF7" stroke="#8B7A8E" stroke-width="2"/>
+                            <text x="0" y="4.5" text-anchor="middle" font-size="12" font-weight="900" fill="#5D4E60">原來：${q.hBefore} cm</text>
+                        </g>
+                    `;
+
+                    // 升高水位指示括號與標籤
+                    const midDeltaY = (beforeY + afterY) / 2;
+                    const deltaTagText = q.mode === 'mode3_1'
+                        ? `現在：${q.hAfter} cm`
+                        : (state.isQuestionFinished ? `升高了 ${q.approxNote ? '約 ' : ''}${q.deltaH} cm` : `升高了 ? cm`);
+                    const deltaBg = (q.mode === 'mode3_2' && !state.isQuestionFinished) ? '#FFE082' : '#FF9EB5';
+                    const deltaTextCol = (q.mode === 'mode3_2' && !state.isQuestionFinished) ? '#5D4E60' : '#FFFFFF';
+
+                    sceneSvg += `
+                        <line x1="${boxX - 10}" y1="${afterY}" x2="${boxX}" y2="${afterY}" stroke="#F06E90" stroke-width="2.4"/>
+                        <g transform="translate(${boxX - 68}, ${Math.min(beforeY - 18, midDeltaY - 6)})">
+                            <rect x="-62" y="-14" width="124" height="28" rx="14" fill="${deltaBg}" stroke="#5D4E60" stroke-width="2"/>
+                            <text x="0" y="5" text-anchor="middle" font-size="12.5" font-weight="900" fill="${deltaTextCol}">${deltaTagText}</text>
+                        </g>
+                    `;
+                } else {
+                    // 放入前：僅顯示原來水深標籤
+                    sceneSvg += `
+                        <line x1="${boxX - 10}" y1="${beforeY}" x2="${boxX}" y2="${beforeY}" stroke="#1E88E5" stroke-width="2.2"/>
+                        <g transform="translate(${boxX - 68}, ${beforeY})">
+                            <rect x="-60" y="-13" width="120" height="26" rx="13" fill="#E1F5FE" stroke="#4BA3D3" stroke-width="2"/>
+                            <text x="0" y="4.5" text-anchor="middle" font-size="12.5" font-weight="900" fill="#5D4E60">水深：${q.hBefore} cm</text>
+                        </g>
+                    `;
+                }
+
+                // 繪製重物（放入後沉在盒底；放入前在方盒上方）
+                const objCx = boxX + boxW / 2 + 12;
+                const objCy = isAfter ? (boxY + boxH - 26) : 34;
+                sceneSvg += renderHeavyObjectSvg(q.obj, objCx, objCy, 0.92);
+            }
+
+            svg.innerHTML = defsSvg + sceneSvg;
         }
 
         /* ============================================================================
-           9. 模式切換與新題目載入
+           8. 模式切換、動畫控制與介面更新
            ============================================================================ */
-        function switchMode(modeKey) {
-            state.currentMode = modeKey;
-            updateMenuHighlight();
+        function switchMode(mode) {
+            state.currentMode = mode;
+            state.questionNumber = 0;
+
+            // 高亮左方目前選中的模式按鈕
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'border-sakuraDark', 'shadow-md', 'ring-2', 'ring-sakura/40');
+                btn.classList.add('bg-white/75', 'border-paperBorder');
+            });
+
+            const activeBtn = document.getElementById(`menu-${mode}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white/75', 'border-paperBorder');
+                activeBtn.classList.add('bg-white', 'border-sakuraDark', 'shadow-md', 'ring-2', 'ring-sakura/40');
+            }
+
+            const cfg = MODE_CONFIG[mode];
+            document.getElementById('header-mode-title').textContent = cfg.title;
+            document.getElementById('header-difficulty-badge').textContent = cfg.badge;
+            document.getElementById('input-prompt-label').textContent = cfg.promptLabel;
+            document.getElementById('input-unit-badge').textContent = cfg.unit;
+
             generateNextQuestion();
         }
 
-        function updateMenuHighlight() {
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'border-skyDark', 'shadow-md', 'ring-2', 'ring-sky/40');
-                btn.classList.add('bg-white/75', 'border-paperBorder');
-            });
-            const activeBtn = document.getElementById(`menu-${state.currentMode}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-white/75', 'border-paperBorder');
-                activeBtn.classList.add('bg-white', 'border-skyDark', 'shadow-md', 'ring-2', 'ring-sky/40');
-            }
-        }
-
         function generateNextQuestion() {
-            const cfg = MODE_CONFIG[state.currentMode];
-            state.questionCount++;
+            state.questionNumber++;
+            state.currentQuestion = generateProblemData(state.currentMode);
             state.attemptsLeft = 3;
             state.isQuestionFinished = false;
-            state.currentQuestion = generateProblemData(state.currentMode);
+            state.showAfterState = true;
 
-            // 更新頂部標籤
-            document.getElementById('header-mode-title').textContent = cfg.title;
-            document.getElementById('header-difficulty-badge').textContent = cfg.difficulty;
-            document.getElementById('header-q-num').textContent = `第 ${state.questionCount} 題`;
-
-            // 更新題目卡片
             const q = state.currentQuestion;
+            const cfg = MODE_CONFIG[state.currentMode];
+
+            // 更新題號與題目文字
+            document.getElementById('header-q-num').textContent = `第 ${state.questionNumber} 題`;
             document.getElementById('question-obj-badge').textContent = q.obj.emoji;
             document.getElementById('object-name-pill').textContent = `重物：${q.obj.name}`;
             document.getElementById('question-statement').textContent = q.statement;
 
-            // 更新輸入框與單位
-            document.getElementById('input-prompt-label').textContent = cfg.inputLabel;
-            document.getElementById('input-unit-badge').textContent = cfg.unit;
+            // 重置輸入框與按鈕
             const inputEl = document.getElementById('student-answer-input');
             inputEl.value = '';
             inputEl.disabled = false;
             document.getElementById('submit-answer-btn').disabled = false;
 
-            // 重置提示與反饋卡片
+            // 隱藏所有反饋與提示卡片
             document.getElementById('input-warning-banner').classList.add('hidden');
             document.getElementById('hint1-card').classList.add('hidden');
             document.getElementById('hint2-card').classList.add('hidden');
@@ -1669,81 +1847,109 @@
             playDropAnimation();
         }
 
-        function updateAttemptsUI() {
-            const label = document.getElementById('attempts-label');
-            const hearts = document.getElementById('attempts-hearts');
+        function playDropAnimation() {
+            if (state.animTimer) {
+                clearTimeout(state.animTimer);
+            }
+            state.showAfterState = false;
+            renderExperimentCanvas();
+            playTone('drop');
 
-            if (state.attemptsLeft === 3) {
-                label.textContent = '還有 3 次機會';
-                hearts.textContent = '❤️❤️❤️';
-            } else if (state.attemptsLeft === 2) {
-                label.textContent = '還有 2 次機會';
-                hearts.textContent = '❤️❤️🤍';
-            } else if (state.attemptsLeft === 1) {
-                label.textContent = '最後 1 次機會';
-                hearts.textContent = '❤️🤍🤍';
-            } else {
-                label.textContent = '機會已用完';
-                hearts.textContent = '🤍🤍🤍';
+            state.animTimer = setTimeout(() => {
+                state.showAfterState = true;
+                renderExperimentCanvas();
+            }, 680);
+        }
+
+        function toggleBeforeAfter() {
+            if (state.animTimer) {
+                clearTimeout(state.animTimer);
+            }
+            state.showAfterState = !state.showAfterState;
+            renderExperimentCanvas();
+            playTone('click');
+        }
+
+        function updateAttemptsUI() {
+            const labelEl = document.getElementById('attempts-label');
+            const heartsEl = document.getElementById('attempts-hearts');
+            const left = state.attemptsLeft;
+
+            if (labelEl) {
+                labelEl.textContent = left > 0 ? `還有 ${left} 次機會` : '機會已用完';
+            }
+            if (heartsEl) {
+                heartsEl.textContent = '❤️'.repeat(left) + '🤍'.repeat(Math.max(0, 3 - left));
             }
         }
 
         /* ============================================================================
-           10. 提交答案與三段式漸進提示驗證邏輯
+           9. 作答檢查與三段式漸進提示系統
            ============================================================================ */
         function handleCheckAnswer() {
-            if (state.isQuestionFinished) return;
+            if (state.isQuestionFinished || !state.currentQuestion) return;
 
             const inputEl = document.getElementById('student-answer-input');
             const warningBanner = document.getElementById('input-warning-banner');
+            const warningText = document.getElementById('input-warning-text');
             const rawVal = inputEl.value.trim();
 
-            // 輸入驗證：空值不扣嘗試次數
             if (rawVal === '' || isNaN(Number(rawVal))) {
+                warningText.textContent = '請先在空格內輸入數字答案再提交喔！';
                 warningBanner.classList.remove('hidden');
                 inputEl.classList.remove('animate-shake');
-                void inputEl.offsetWidth; // 觸發重繪以重播動畫
+                void inputEl.offsetWidth;
                 inputEl.classList.add('animate-shake');
                 inputEl.focus();
+                playTone('wrong');
                 return;
             }
+
             warningBanner.classList.add('hidden');
-
-            const userAnswer = Number(rawVal);
+            const userVal = Number(rawVal);
             const q = state.currentQuestion;
-            const isCorrect = Math.abs(userAnswer - q.answer) < 0.01;
 
-            if (isCorrect) {
+            // 允許極小浮點誤差容忍度 1e-6，確保至小數點後兩位準確值須完整填寫
+            if (Math.abs(userVal - q.answer) < 1e-6) {
                 handleCorrectAnswer();
             } else {
-                handleWrongAnswer();
+                handleWrongAnswer(userVal);
             }
         }
 
         function handleCorrectAnswer() {
             state.isQuestionFinished = true;
-            document.getElementById('student-answer-input').disabled = true;
+            state.showAfterState = true;
+            renderExperimentCanvas();
+
+            const inputEl = document.getElementById('student-answer-input');
+            inputEl.disabled = true;
             document.getElementById('submit-answer-btn').disabled = true;
 
-            // 計算獲得星星（一次答對得 2 顆星，提示後答對得 1 顆星）
-            const earnedStars = state.attemptsLeft === 3 ? 2 : 1;
+            // 計算獲得得分（一次答對 3 分、第二次 2 分、第三次 1 分）並累計至對應選項
+            const q = state.currentQuestion;
+            const earnedStars = state.attemptsLeft;
             state.solvedCount++;
             state.streakCount++;
             state.starCount += earnedStars;
+
+            if (state.modeStats[q.mode]) {
+                state.modeStats[q.mode].attempted++;
+                state.modeStats[q.mode].solved++;
+                state.modeStats[q.mode].stars += earnedStars;
+            }
             saveProgress();
 
-            const praise = pickRandom(PRAISE_MESSAGES);
-            document.getElementById('correct-praise-title').textContent = praise;
-            document.getElementById('correct-summary-text').textContent =
-                `算式回顧：${state.currentQuestion.summary}（獲得 +${earnedStars} ⭐）`;
+            document.getElementById('correct-praise-title').textContent = pickRandom(PRAISE_MESSAGES);
+            document.getElementById('correct-summary-text').textContent = `解題回顧：${q.summary}（本題獲得 ${earnedStars} 分 ⭐）`;
 
             document.getElementById('correct-card').classList.remove('hidden');
-            setShibaSpeech(`太厲害了！答對囉！小柴博士送你 ${earnedStars} 顆閃亮星星！⭐`, 'happy');
+            setShibaSpeech(`太厲害了！答對囉！${MODE_CONFIG[q.mode].shortTitle}獲得 ${earnedStars} 分！⭐`, 'happy');
             playTone('correct');
             launchConfetti();
         }
 
-        function handleWrongAnswer() {
+        function handleWrongAnswer(userVal) {
             state.attemptsLeft--;
             updateAttemptsUI();
             playTone('wrong');
@@ -1756,22 +1962,34 @@
             inputEl.select();
 
             const q = state.currentQuestion;
+            // 檢查學生是否把準確至兩位小數的答案誤作四捨五入或進位至一位小數
+            const rounded1DPTrap = q.isExactDecimal &&
+                Math.abs(roundHalfUp(userVal, 1) - roundHalfUp(q.answer, 1)) < 1e-6 &&
+                Math.abs(userVal - q.answer) >= 1e-6;
+
+            const extraDecimalReminder = rounded1DPTrap
+                ? ' ⚠️ 小提醒：這題的準確值至小數點後兩位，請完全寫出兩位小數，不用進位（round up）喔！'
+                : '';
 
             if (state.attemptsLeft === 2) {
                 // 第 1 次答錯 -> 顯示提示 1
-                document.getElementById('hint1-content').textContent = q.hint1;
+                document.getElementById('hint1-content').textContent = q.hint1 + extraDecimalReminder;
                 document.getElementById('hint1-card').classList.remove('hidden');
                 setShibaSpeech('差一點點！別灰心，看看「提示 1」再算一次吧！還有 2 次機會喔！💪', 'encourage');
             } else if (state.attemptsLeft === 1) {
                 // 第 2 次答錯 -> 顯示提示 2
-                document.getElementById('hint2-content').textContent = q.hint2;
+                document.getElementById('hint2-content').textContent = q.hint2 + extraDecimalReminder;
                 document.getElementById('hint2-card').classList.remove('hidden');
-                setShibaSpeech('加油！最後 1 次機會了，跟著「提示 2」的算式一步步算出來！🔍', 'encourage');
+                setShibaSpeech('汪！最後 1 次機會了，跟著「提示 2」的算式一步步算出來！🔍', 'encourage');
             } else {
-                // 第 3 次答錯 -> 鎖定並展示完整答案及思考過程
+                // 第 3 次答錯 -> 鎖定並展示完整答案及思考過程，該選項計入已作答但得 0 分
                 state.isQuestionFinished = true;
                 state.streakCount = 0;
+                if (state.modeStats[q.mode]) {
+                    state.modeStats[q.mode].attempted++;
+                }
                 saveProgress();
+                renderExperimentCanvas();
 
                 inputEl.disabled = true;
                 document.getElementById('submit-answer-btn').disabled = true;
@@ -1791,53 +2009,57 @@
         }
 
         /* ============================================================================
-           11. 慶祝彩帶粒子畫布特效 (Canvas Confetti)
+           10. 答對慶祝日系馬卡龍彩帶特效
            ============================================================================ */
         function launchConfetti() {
             const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
             const colors = ['#FF9EB5', '#88D8B0', '#89CFF0', '#FFE082', '#CE93D8'];
-            const particles = Array.from({ length: 65 }, () => ({
+            const pieces = Array.from({ length: 75 }, () => ({
                 x: Math.random() * canvas.width,
-                y: -20 - Math.random() * 120,
-                size: 6 + Math.random() * 6,
+                y: -20 - Math.random() * canvas.height * 0.4,
+                w: 8 + Math.random() * 8,
+                h: 6 + Math.random() * 6,
                 color: pickRandom(colors),
                 vx: (Math.random() - 0.5) * 4,
-                vy: 2.5 + Math.random() * 4,
-                rot: Math.random() * Math.PI * 2,
-                vRot: (Math.random() - 0.5) * 0.15
+                vy: 3 + Math.random() * 4,
+                rot: Math.random() * 360,
+                vRot: (Math.random() - 0.5) * 10
             }));
 
-            let frames = 0;
-            function animateConfetti() {
-                frames++;
+            let frame = 0;
+            function step() {
+                frame++;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
+
+                pieces.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
                     p.rot += p.vRot;
+
                     ctx.save();
                     ctx.translate(p.x, p.y);
-                    ctx.rotate(p.rot);
+                    ctx.rotate((p.rot * Math.PI) / 180);
                     ctx.fillStyle = p.color;
-                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
                     ctx.restore();
                 });
 
-                if (frames < 110) {
-                    requestAnimationFrame(animateConfetti);
+                if (frame < 130) {
+                    requestAnimationFrame(step);
                 } else {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                 }
             }
-            requestAnimationFrame(animateConfetti);
+            requestAnimationFrame(step);
         }
 
         /* ============================================================================
-           12. 網頁載入初始化
+           11. 網頁載入初始化
            ============================================================================ */
         window.onload = function () {
             renderShibaMascot('idle');
